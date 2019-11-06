@@ -14,7 +14,7 @@ public class Map {
 	
 	public boolean add(Site toAdd) {
 		boolean added=siteList.add(toAdd);
-		sites.add(toAdd.getName(),toAdd);
+//		sites.add(toAdd.getName(),toAdd);
 		return added;
 	}
 	public boolean remove(Site toKill) {
@@ -26,7 +26,7 @@ public class Map {
 	public ArrayList<String> listSites(){
 		ArrayList<String> temp = new ArrayList<String>(siteList.size());
 		for(Site site:siteList) {
-			temp.add(site.getName());
+//			temp.add(site.getName());
 		}
 		return temp;
 	}
