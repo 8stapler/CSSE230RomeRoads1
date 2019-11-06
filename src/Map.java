@@ -1,26 +1,61 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import java.util.TreeSet;
 
-public class Map {
-	public static final int approxSites=50;
+public class Map implements Serializable{
+	public static final int approxSites=10;
 	HashMap<String,Site> sites;
 	TreeSet<Site> siteList;
 	public Map() {
 		sites= new HashMap<String, Site>(approxSites);
 		siteList= new TreeSet<Site>();
 	}
-	
+	public void generateMap(String filename) throws Exception{
+		File file = new File(filename);
+		BufferedReader in = new BufferedReader(new FileReader(file));
+		
+		String line;
+		in.mark(1000000);
+		while((line=in.readLine())!=null) {//go through the lines looking to add sites
+			
+			String[] temp=line.split("\t|`");
+			System.out.println(Arrays.toString(temp));
+			if(temp[0].equals("Site")) {
+				int x= Integer.parseInt(temp[1]);
+				int y= Integer.parseInt(temp[2]);
+				int hist= Integer.parseInt(temp[3]);
+				String name= temp[4];
+				add(new Site(x,y,hist,name,temp[5],new ArrayList<Road>())); //csv has Site| x|y|history|name|description
+			}
+		}
+		in.reset(); //read back through the file for roads
+		while((line=in.readLine())!=null) {
+			String[] temp=line.split("\t|`");
+			if(temp[0].equals("Road")) {
+				//road lines are in the form Road`start`end`dist`beut
+				String startName=temp[1];
+				String stopName=temp[2];
+				int time = Integer.parseInt(temp[3]);
+				int beut= Integer.parseInt(temp[4]);
+				sites.get(startName).addRoad(new Road(sites.get(stopName),beut,time));
+			}
+		}
+		in.close();
+	}
 	public boolean add(Site toAdd) {
 		boolean added=siteList.add(toAdd);
-//		sites.add(toAdd.getName(),toAdd);
 		return added;
 	}
 	public boolean remove(Site toKill) {
 		if(siteList.size()==0)return false;
 		boolean removed = siteList.remove(toKill);
-		sites.remove(toKill);
+		sites.remove(toKill.getName());
 		return removed;
 	}
 	public ArrayList<String> listSites(){
@@ -33,6 +68,9 @@ public class Map {
 
 	public TreeSet<Site> getSiteList() {
 		return siteList;
+	}
+	public String toString() {
+		return siteList.toString();
 	}
 	
 	
