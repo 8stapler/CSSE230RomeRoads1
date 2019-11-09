@@ -139,7 +139,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	
 
 
-private class CostCompSite extends Site{
+public class CostCompSite extends Site{
 
 
 	private CostCompSite prevSite;
@@ -162,7 +162,7 @@ private class CostCompSite extends Site{
 		
 	}
 	
-private class Site implements Comparable {
+public class Site implements Comparable {
 
 		private int xPos;
 		private int yPos;
@@ -192,6 +192,9 @@ private class Site implements Comparable {
 		
 		public ArrayList<Road> getRoads(){
 			return roads;
+		}
+		public void setRoads(ArrayList<Road>r) {
+			roads = r;
 		}
 		public String getName() {
 			return name;
