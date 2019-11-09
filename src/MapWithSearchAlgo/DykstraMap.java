@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 
-public class Map<E extends Comparable<?super E>> {
+public class DykstraMap<E extends Comparable<?super E>> {
 	public static final int approxSites=50;
 	public static final int MAXSHORTESTPATHS=50000;
 	
@@ -18,7 +18,7 @@ public class Map<E extends Comparable<?super E>> {
 	
 	private HashMap<String,Road> prohibitedRoads;
 	
-	public Map() {
+	public DykstraMap() {
 		sites= new HashMap<String, Site>(approxSites);
 		siteList= new TreeSet<Site>();
 		paths = new ArrayList<Path>();
