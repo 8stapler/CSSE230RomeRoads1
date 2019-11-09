@@ -52,6 +52,11 @@ public class Map<E extends Comparable<?super E>> {
 	
 	public Path shortestPath(Site start, Site end, TreeSet<Site> fullGraph){
 
+		//Set up list of sites.
+		//a site is known if we know the shortest distance to it
+		//a site is unknown if we don't
+		//Everything is initially unknown
+		
 		PriorityQueue<CostCompSite> unknown = new PriorityQueue<CostCompSite>();
 		ArrayList<CostCompSite> known = new ArrayList<CostCompSite>();
 		Path result;
@@ -59,26 +64,32 @@ public class Map<E extends Comparable<?super E>> {
 		CostCompSite beginning = new CostCompSite(start);
 		beginning.setDistFrom(0);
 		unknown.add(beginning);
+		start.setCostComp(beginning);
 		
 		CostCompSite destination = new CostCompSite(end);
 		unknown.add(destination);
+		end.setCostComp(destination);
 		
 		for(Site s : fullGraph) {
 			if(s!=start && s!=end) {
-			unknown.add(new CostCompSite(s));
+			CostCompSite temp = new CostCompSite(s);
+			unknown.add(temp);
+			s.setCostComp(temp);
 			}
 		}
 		
 		CostCompSite current;
+		
 		while(!(unknown.isEmpty())) {
 			
 			current=unknown.poll();
 			known.add(current);
+			
 			if(current.getDistFrom()==Integer.MAX_VALUE) {
-				return null;
+				return null; //Node not connected to rest by roads
 			}
 			if(current==destination) {
-				if(current.toRoad==null)return null;
+				if(current.toRoad==null)return null; //Start node was End node
 				
 				LinkedList<Road> goBetween = new LinkedList<Road>();
 				
@@ -87,12 +98,15 @@ public class Map<E extends Comparable<?super E>> {
 					current=current.prevSite;
 				}
 				
+				//Path is an array list because it's nice to have instant access to each 'path length'/ road
 				result = new Path(goBetween);
 				return result;
 			}
 			
 			for(Road r: current.roads) {
-					
+				
+				//Add a condition to check if the road is banned later (for nth shortest path)
+				
 				CostCompSite neighbor = r.getSite();
 				if(!(known.contains(neighbor))){
 					
@@ -159,6 +173,7 @@ private class Site implements Comparable {
 		private int distFrom;
 		private int sceneFrom;
 		private int histFrom;
+		private CostCompSite costComp;
 		
 		public Site(int xPosition, int yPosition, int history, String name, String description, ArrayList<Road> roadybois) {
 			
@@ -171,6 +186,7 @@ private class Site implements Comparable {
 			distFrom=Integer.MAX_VALUE;
 			sceneFrom=-1;
 			histFrom=-1;
+			costComp=null;
 		}
 		
 		
@@ -179,6 +195,9 @@ private class Site implements Comparable {
 		}
 		public String getName() {
 			return name;
+		}
+		public void setCostComp(CostCompSite a) {
+			costComp=a;
 		}
 
 		@Override
@@ -218,22 +237,20 @@ private class Site implements Comparable {
 		}
 }
 
-
-
 public class Road{
 	private CostCompSite destination;
 	private int beauty;
 	private int timeCost;
 	private String name;
 	
-	public Road(String n, CostCompSite dest, int beaut, int tic) {
+	public Road(String n, Site dest, int beaut, int tic) {
 		name=n;
-		destination = dest;
+		destination = dest.costComp;
 		beauty = beaut;
 		timeCost = tic;
 	}
 	
-	public Map<E>.CostCompSite getSite() {
+	public CostCompSite getSite() {
 		return  destination;
 	}
 	
