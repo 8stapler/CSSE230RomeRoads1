@@ -1,6 +1,7 @@
 package graphics;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -36,12 +37,12 @@ public class MainUI extends JFrame{
 			
 			gbc.anchor = GridBagConstraints.NORTHWEST;
 			
-			gbc.insets = new Insets(0, 70, 0, 0);
+			gbc.insets = new Insets(0, 75, 0, 0);
 			
 			l1 = new JLabel("Main Menu");
+			l1.setFont(new Font("Verdana", Font.PLAIN, 18));
 			gbc.fill = GridBagConstraints.VERTICAL;
-			gbc.ipadx = 100;
-			gbc.ipady = 40;
+			gbc.ipadx = 150;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			gbc.gridwidth = 1;
@@ -50,7 +51,6 @@ public class MainUI extends JFrame{
 			add(l1, gbc);
 			
 			gbc.insets = new Insets(20, 10, 60, 0);
-			
 			
 			b1 = new JButton("button1");
 			gbc.fill = GridBagConstraints.VERTICAL;
