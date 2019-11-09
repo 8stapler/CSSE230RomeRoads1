@@ -1,3 +1,4 @@
+
 public class Road {
 	private Site destination;
 	private int beauty;
