@@ -10,7 +10,7 @@ public class Road {
 	}
 	
 	public Site getSite() {
-		return  destination;
+		return destination;
 	}
 	
 	public int getBeauty() {
@@ -20,7 +20,5 @@ public class Road {
 	public int getTimeCost() {
 		return timeCost;
 	}
-	
-	
 	
 }

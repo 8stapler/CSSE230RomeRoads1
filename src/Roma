@@ -1,0 +1,30 @@
+//form is Site	x	y	history`name`description
+Site	0	0	-10	Terre Haute	Meth Capital of the World
+djfklasd;jfl;
+Site	20	20	0	City2	<Genaric Town Description>
+//form is Road`StartCity`Destination City` time cost` beauty
+Road`Terre Haute`City2`10	2
+Road	City2	Terre Haute	10	3
+
+Site`291961`4640632`15`Rome`Capital of the longest standing Republic
+Site`317520`4647649`7`Tivoli`First ally of Rome
+Road`Rome`Tivoli`9`5
+Site`292935`4699108`12`Otricoli`Anciently named Ocriculum, the Umbrian city concluded an alliance with Rome in 308 BC.
+Road`Rome`Otricoli`21`12
+Site`273700`4623738`14`Ostia`the only district of Rome on the Tyrrhenian Sea
+Road`Rome`Ostia`8`13
+Site`Narni`
+
+Site`
+Site`
+Site`
+Site`
+Site`
+Site`
+
+Road`
+Road`
+Road`
+Road`
+Road`
+Road`
