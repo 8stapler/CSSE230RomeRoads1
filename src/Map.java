@@ -66,8 +66,8 @@ public class Map<E extends Comparable<?super E>> {
 			String[] temp=line.split("\t|`");
 			System.out.println(Arrays.toString(temp));
 			if(temp[0].equals("Site")) {
-				int x= Integer.parseInt(temp[1]);
-				int y= Integer.parseInt(temp[2]);
+				double x= Double.parseDouble(temp[1]);
+				double y= Integer.parseInt(temp[2]);
 				int hist= Integer.parseInt(temp[3]);
 				String name= temp[4];
 				add(new Site(x,y,hist,name,temp[5],new ArrayList<Road>())); //csv has Site| x|y|history|name|description
@@ -82,10 +82,18 @@ public class Map<E extends Comparable<?super E>> {
 				String stopName=temp[2];
 				int time = Integer.parseInt(temp[3]);
 				int beut= Integer.parseInt(temp[4]);
-				sites.get(startName).addRoad(new Road(sites.get(stopName),beut,time));
+				Site end1= sites.get(startName), end2= sites.get(stopName);
+				if(end1!=null&end2!=null)
+					addTwoRoads(end1,end2,beut,time);
 			}
 		}
 		in.close();
 	}	
-	
+	private void addTwoRoads(Site end1, Site end2,int  beut, int time) {
+		end1.addRoad(new Road(end1.getName(),end2,beut,time));
+		end2.addRoad(new Road(end2.getName(),end1,beut,time));
+	}
+	public String toString() {
+		return siteList.toString();
+	}
 	}

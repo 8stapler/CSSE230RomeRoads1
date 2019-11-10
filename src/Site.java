@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public class Site implements Comparable {
 
-	private int xPos;
-	private int yPos;
+	private double xPos;
+	private double yPos;
 	private int hist;
 	private String name;
 	private String desc;
 	private ArrayList<Road> roads= new ArrayList<Road>();
 	
-	public Site(int xPosition, int yPosition, int history, String name, String description, ArrayList<Road> roadybois) {
+	public Site(double xPosition, double yPosition, int history, String name, String description, ArrayList<Road> roadybois) {
 		xPos=xPosition;
 		yPos=yPosition;
 		hist=history;
@@ -35,10 +35,10 @@ public class Site implements Comparable {
 	}
 	
 	
-	public int getXPos() {
+	public double getXPos() {
 		return xPos;
 	}
-	public int getYPos() {
+	public double getYPos() {
 		return yPos;
 	}
 	public int getHistory() {
