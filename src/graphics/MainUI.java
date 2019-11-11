@@ -1,6 +1,7 @@
 package graphics;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,6 +23,7 @@ public class MainUI extends JFrame{
 		frame.setSize(1000, 700);
 		frame.setVisible(true);
 		frame.add(m);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 	
@@ -37,9 +39,9 @@ public class MainUI extends JFrame{
 			
 			gbc.anchor = GridBagConstraints.NORTHWEST;
 			
-			gbc.insets = new Insets(0, 75, 0, 0);
+			gbc.insets = new Insets(0, 65, 0, 0);
 			
-			l1 = new JLabel("Main Menu");
+			l1 = new JLabel("Roman Roads");
 			l1.setFont(new Font("Verdana", Font.PLAIN, 18));
 			gbc.fill = GridBagConstraints.VERTICAL;
 			gbc.ipadx = 150;
@@ -52,29 +54,33 @@ public class MainUI extends JFrame{
 			
 			gbc.insets = new Insets(20, 10, 60, 0);
 			
-			b1 = new JButton("button1");
+			b1 = new JButton("Browse Sites");
 			gbc.fill = GridBagConstraints.VERTICAL;
 			gbc.gridx = 0;
 			gbc.gridy = 1;
 			gbc.gridwidth = 1;
 			gbc.weightx = 1;
 			gbc.weighty = 1;
+			b1.addActionListener(new SiteMenuListener());
+			b1.setPreferredSize(new Dimension(80, 40));
 			add(b1, gbc);
 			
-			b2 = new JButton("button2"); 
+			b2 = new JButton("Search Routes"); 
 			gbc.fill = GridBagConstraints.VERTICAL;
 			gbc.gridx = 0;
 			gbc.gridy = 2;
 			gbc.gridwidth = 1;
 			gbc.weightx = 1;
+			b2.setPreferredSize(new Dimension(80, 40));
 			add(b2, gbc);
 			
-			b3 = new JButton("button3"); 
+			b3 = new JButton("Trip Planner"); 
 			gbc.fill = GridBagConstraints.VERTICAL;
 			gbc.gridx = 0;
 			gbc.gridy = 3;
 			gbc.gridwidth = 1;
 			gbc.weightx = 1;
+			b3.setPreferredSize(new Dimension(80, 40));
 			add(b3, gbc);
 		}
 	}
