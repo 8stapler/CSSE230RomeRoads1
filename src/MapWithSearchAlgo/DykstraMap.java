@@ -72,13 +72,16 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		
 		for(Site s : fullGraph) {
 			if(s!=start && s!=end) {
-			CostCompSite temp = new CostCompSite(s);
-			unknown.add(temp);
-			s.setCostComp(temp);
+			s.setCostComp(new CostCompSite(s));
 			}
+		}
+		for(Site s : fullGraph) {
+			unknown.add(s.costComp);
 		}
 		
 		CostCompSite current;
+		
+		System.out.println("unknown: "+unknown.toString());
 		
 		while(!(unknown.isEmpty())) {
 			
@@ -116,6 +119,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 						neighbor.setDistFrom(distToNeighbor);
 						neighbor.toRoad=r;
 						neighbor.prevSite=current;
+						System.out.println(neighbor.getName()+" : "+neighbor.getDistFrom());
 						
 						//Update Heap
 						int index = unknown.indexOf(neighbor);
@@ -196,6 +200,9 @@ public class Site implements Comparable {
 		public void setRoads(ArrayList<Road>r) {
 			roads = r;
 		}
+		public String toString() {
+			return name;
+		}
 		public String getName() {
 			return name;
 		}
@@ -271,7 +278,6 @@ public class Road{
 	}
 	
 	
-	
 }
 
 public class Path extends ArrayList<Road>{
@@ -281,6 +287,14 @@ public class Path extends ArrayList<Road>{
 		public Path(LinkedList<Road> roads) {
 			super(roads);
 			length=Integer.MAX_VALUE;
+		}
+		
+		public String toString() {
+			ArrayList<String> result = new ArrayList<String>();
+			for(Road r:this) {
+				result.add(r.getName());
+			}
+			return result.toString();
 		}
 	}
 
