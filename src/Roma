@@ -1,30 +1,59 @@
-//form is Site	x	y	history`name`description
-Site	0	0	-10	Terre Haute	Meth Capital of the World
-djfklasd;jfl;
-Site	20	20	0	City2	<Genaric Town Description>
-//form is Road`StartCity`Destination City` time cost` beauty
-Road`Terre Haute`City2`10	2
-Road	City2	Terre Haute	10	3
+// List of Roman Cities and Roads
+// Nov 9, 2019
+// Comments are the name of the cities in Latin
 
-Site`291961`4640632`15`Rome`Capital of the longest standing Republic
-Site`317520`4647649`7`Tivoli`First ally of Rome
+// Roma
+Site`12.5`41.833`15`Rome`Capital of the longest standing Republic
+// Tibur
+Site`12.798`41.960`7`Tivoli`First ally of Rome
 Road`Rome`Tivoli`9`5
-Site`292935`4699108`12`Otricoli`Anciently named Ocriculum, the Umbrian city concluded an alliance with Rome in 308 BC.
+// Ocriculum
+Site`12.483`42.416`12`Otricoli`Anciently named Ocriculum, the Umbrian city concluded an alliance with Rome in 308 BC.
 Road`Rome`Otricoli`21`12
-Site`273700`4623738`14`Ostia`the only district of Rome on the Tyrrhenian Sea
+// Ostia/Portus
+Site`12.279`41.733`14`Ostia`the only district of Rome on the Tyrrhenian Sea
 Road`Rome`Ostia`8`13
-Site`296003`4710132`Narni`
+// Narnia
+Site`12.517`41.517`13`Narni`an ancient hilltown and comune of Umbria, in central Italy
+Road`Otricoli`Narni`4`10
+// Reate
+Site`12.867`42.4`7`Rieti`a city and comune in Lazio, central Italy
+Road`Rome`Rieti`24`5
+// Spoletium
+Site`12.685`42.756`8`Spoleto`a walled medieval hill town in central Italy's Umbria region
+Road`Narni`Spoleto`12`6
+// Volsinii
+Site`12.1`42.717`9`Volsinii`used to be one of the most powerful cities of Etruria
+Road`Rome`Volsinii`34`3
+// Cosa
+Site`11.28`42.410`10`Cosa`a Latin colony founded in southwestern Tuscany
+Road`Rome`Cosa`42`13
+// Clusium
+Site`11.95`43.017`12`Clusium`remodeled an earlier Etruscan city, Clevsin, found in the territory of a prehistoric culture
+Road`Volsinii`Clusium`14`8
+// Asculum
+Site`13.583`42.85`13`Ascoli Piceno`a town and comune in the Marche region of Italy
+Road`Rieti`Ascoli Piceno`38`10
+// Alba Fucens
+Site`13.409`42.080`7`Alba Fucens`an ancient Italic town occupying a lofty location (1km) at the foot of the Monte Velino
+Road`Tivoli`Alba Fucens`21`5
+// Corfinium
+Site`13.835`42.117`9`Corfinium`the chief city of the Paeligni
+Road`Alba Fucens`Corfinium`21`9
+// Castrum Truentinum
+Site`13.917`42.883`10`Martinsicuro`Remains of a Bronze Age settlement were found in the communal territory, on a hill overlooking the Tronto river.
+Road`Ascoli Piceno`Martinsicuro`9`10
+// Ancona
+Site`13.517`43.617`8`Ancona`founded by Greek settlers who gave it the name that stems from a Greek word meaning "elbow"
+Road`Martinsicuro`Ancona`30`14
+// Arretium
+Site`11.87`43.473`12`Arezzo`believed to have been one of the twelve most important Etruscan cities
+Road`Clusium`Arezzo`18`4
+// Fanum Fortunae
+Site`13.017`43.833`10`Fano`an ancient town of Marche
+Road`Spoleto`Fano`54`8
+Road`Ancona`Fano`17`12
+// Ariminum
+Site`Rimini`
 
-Site`
-Site`
-Site`
-Site`
-Site`
-Site`
 
-Road`
-Road`
-Road`
-Road`
-Road`
-Road`
