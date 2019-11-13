@@ -57,22 +57,19 @@ Road`Spoleto`Fano`54`8
 Road`Ancona`Fano`17`12
 // Ariminum
 Site`12.568`44.059`13`Rimini`one of the most famous seaside resorts in Europe
-
+Road`Fano`Rimini`15`4
 // Faventia
 Site`11.883`44.286`7`Faenza`home to a historical manufacture of majolica-ware glazed earthenware pottery, known from the name of the town as faience.
-
+Road`Faenza`Rimini`21`6
 // Florentia
 Site`11.25`43.783`15`Florentia`used to be a centre of medieval European trade and finance and one of the wealthiest cities of that era.
-
-// Populonium
-Site`10.491`42.989`10`Populonia`especially noteworthy for its Etruscan remains, including one of the main necropolis in Italy, discovered by Isidoro Falchi.
-
+Road`Faenza`Florentia`40`3
 // Pisae
 Site`10.4`43.717`12`Pisa`Although known for its leaning tower, the city contains more than 20 other historic churches, several medieval palaces, and various bridges across the Arno
-
+Road`Cosa`Pisae`59`13
 // Luca
 Site`10.503`43.842`8`Lucca` famous for its intact Renaissance-era city walls
-
+Road`Lucca`Pisa`7`8
 // Pistoriae
 Site`10.917`43.933`11`Pistoia`typical Italian medieval city; famous throughout Europe for ts plant nurseries
 
@@ -94,12 +91,8 @@ Site`494648`4917538`11`Genoa`Historical port city that was early to recover afte
 // Dertona
 Site`489384`4971203`11`Tortona`City founded by Romans at a junction of their roads.
 
-//there are many roads between these so I want a better data source for the roads
-
-
 //Ticinum
 Site` 9.15`45.183333`9`Pavia`Early Roman war camp, became central in the wars during the fall of Rome.
-
 
 //Luna
 Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings
@@ -108,22 +101,22 @@ Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It be
 
 Road`Genoa`Tortona`20`10
 
-
-Road`Piacenza`Tortona`25`10
-Site`9.700556`45.047778`11`Piacenza`Former colony of the Etruscans, then the Celts, then the Romans and later a connection between Rome and the Holy Roman Empire.
-Road`Piacenza`Pavia`17`10
-Site` 9.15`45.183333`9`Pavia`Early Roman war camp, became central in the wars during the fall of Rome.//Ticinum
-Road`Tortona`Pavia`16`10
-Site`10.328`44.801472`Parma`14`City conquered to protect Rome during the republic era. It continued to serve that purpose through the middle ages and into the Napoleaonic wars.
-Road`Parma`Piacenza`19`10 
-Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings`//Luna
-Road`Luni`Parma`36`8
-Road`Luni`Genoa`35`9
-
 Road`Luni`Pisa`17`8
 Road`Luni`Lucca`18`8
 Road`Parma`Modena`17`8
 Road`Bologna`Faenza`16`8
 Road`Bologna`Modena`13`8
+
+
+Road`Piacenza`Tortona`25`10
+Site`9.700556`45.047778`11`Piacenza`Former colony of the Etruscans, then the Celts, then the Romans and later a connection between Rome and the Holy Roman Empire.
+Road`Piacenza`Pavia`17`10
+
+Road`Tortona`Pavia`16`10
+
+Road`Parma`Piacenza`19`10 
+
+Road`Luni`Parma`36`8
+Road`Luni`Genoa`35`9
 
 
