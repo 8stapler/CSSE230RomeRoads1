@@ -1,6 +1,6 @@
 // List of Roman Cities and Roads
 // Nov 9, 2019
-// Comments are the name of the cities in Latin
+// Comments are the name of the cities in Latin for reference while creating roads
 
 // Roma
 Site`12.5`41.833`15`Rome`Capital of the longest standing Republic
@@ -54,15 +54,55 @@ Site`13.017`43.833`10`Fano`an ancient town of Marche
 Road`Spoleto`Fano`54`8
 Road`Ancona`Fano`17`12
 // Ariminum
-Site`Rimini`
+Site`12.568`44.059`13`Rimini`one of the most famous seaside resorts in Europe
 
-Site`494648`4917538`11`Genoa`Historical port city that was early to recover after the fall of Rome.
-Site`489384`4971203`11`Tortona`City founded by Romans at a junction of their roads.`//dertona
-//there are many roads between these so I want a better data source for the roads
-Site`9.700556`45.047778`11`Piacenza`Former colony of the Etruscans, then the Celts, then the Romans and later a connection between Rome and the Holy Roman Empire.
-Site` 9.15`45.183333`9`Pavia`Early Roman war camp, became central in the wars during the fall of Rome.//Ticinum
+// Faventia
+Site`11.883`44.286`7`Faenza`home to a historical manufacture of majolica-ware glazed earthenware pottery, known from the name of the town as faience.
+
+// Florentia
+Site`11.25`43.783`15`Florentia`used to be a centre of medieval European trade and finance and one of the wealthiest cities of that era.
+
+// Populonium
+Site`10.491`42.989`10`Populonia`especially noteworthy for its Etruscan remains, including one of the main necropolis in Italy, discovered by Isidoro Falchi.
+
+// Pisae
+Site`10.4`43.717`12`Pisa`Although known for its leaning tower, teh city contains more than 20 other historic churches, several medieval palaces, and various bridges across the Arno
+
+// Luca
+Site`10.503`43.842`8`Lucca` famous for its intact Renaissance-era city walls
+
+// Pistoriae
+Site`10.917`43.933`11`Pistoia`typical Italian medieval city; famous throughout Europe for ts plant nurseries
+
+// Bononia
+Site`11.351`44.508`13`Bologna`Of Etruscan origin, the city has been a major urban centre for centuries.
+
+// Mutina
+Site`10.926`44.647`12`Modena`it is known for its automotive industry since the factories of the famous Italian sports car makers Ferrari, De Tomaso, Lamborghini, Pagani and Maserati are, or were, located here
+
+// Parma
 Site`10.328`44.801472`Parma`14`City conquered to protect Rome during the republic era. It continued to serve that purpose through the middle ages and into the Napoleaonic wars.
-Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings`//Luna
+
+//Placentia
+Site`9.700556`45.047778`11`Piacenza`Former colony of the Etruscans, then the Celts, then the Romans and later a connection between Rome and the Holy Roman Empire.
+
+//Genua
+Site`494648`4917538`11`Genoa`Historical port city that was early to recover after the fall of Rome.
+
+// Dertona
+Site`489384`4971203`11`Tortona`City founded by Romans at a junction of their roads.
+
+//there are many roads between these so I want a better data source for the roads
+
+
+//Ticinum
+Site` 9.15`45.183333`9`Pavia`Early Roman war camp, became central in the wars during the fall of Rome.
+
+
+//Luna
+Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings
+
+//Ticinum
 
 Road`
 Road`
