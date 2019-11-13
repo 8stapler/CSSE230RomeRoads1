@@ -16,13 +16,20 @@ Road`Rome`Ostia`8`13
 Site`296003`4710132`Narni`
 
 Site`494648`4917538`11`Genoa`Historical port city that was early to recover after the fall of Rome.
+Road`Genoa`Tortona`20`10
 Site`489384`4971203`11`Tortona`City founded by Romans at a junction of their roads.`//dertona
-//there are many roads between these so I want a better data source for the roads 
+//there are many roads between these but I only care about the shortest path
+Road`Piacenza`Tortona`25`10
 Site`9.700556`45.047778`11`Piacenza`Former colony of the Etruscans, then the Celts, then the Romans and later a connection between Rome and the Holy Roman Empire.
+Road`Piacenza`Pavia`17`10
 Site` 9.15`45.183333`9`Pavia`Early Roman war camp, became central in the wars during the fall of Rome.//Ticinum
-Site`10.328`44.801472`Parma`14`City conquered to protect Rome during the republic era. It continued to serve that purpose through the middle ages and into the Napoleaonic wars. 
+Road`Tortona`Pavia`16`10
+Site`10.328`44.801472`Parma`14`City conquered to protect Rome during the republic era. It continued to serve that purpose through the middle ages and into the Napoleaonic wars.
+Road`Parma`Piacenza`19`10 
 Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings`//Luna
-
+Road`Luni`Parma`36`8
+Road`Luni`Genoa`35`9
+Site```15`Pisa`An ancient city even in Roman times, it didn't suffer as much during the fall of Rome. 
 Road`
 Road`
 Road`
