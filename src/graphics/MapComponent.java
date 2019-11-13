@@ -23,7 +23,7 @@ public class MapComponent extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		setSize(800, 700);
 		
-		//test sites delete later
+		//test sites delete later 
 		TreeSet<Site> sites = new TreeSet<Site>();
 		Site site1 = new Site(350, 60, 0, "site1", "", new ArrayList<Road>());
 		Site site2 = new Site(100, 400, 0, "site2longname", "", new ArrayList<Road>());
