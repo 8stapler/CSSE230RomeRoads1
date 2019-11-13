@@ -1,3 +1,5 @@
+
+
 // List of Roman Cities and Roads
 // Nov 9, 2019
 // Comments are the name of the cities in Latin for reference while creating roads
@@ -66,7 +68,7 @@ Site`11.25`43.783`15`Florentia`used to be a centre of medieval European trade an
 Site`10.491`42.989`10`Populonia`especially noteworthy for its Etruscan remains, including one of the main necropolis in Italy, discovered by Isidoro Falchi.
 
 // Pisae
-Site`10.4`43.717`12`Pisa`Although known for its leaning tower, teh city contains more than 20 other historic churches, several medieval palaces, and various bridges across the Arno
+Site`10.4`43.717`12`Pisa`Although known for its leaning tower, the city contains more than 20 other historic churches, several medieval palaces, and various bridges across the Arno
 
 // Luca
 Site`10.503`43.842`8`Lucca` famous for its intact Renaissance-era city walls
@@ -101,9 +103,26 @@ Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It be
 
 //Ticinum
 
+Road`Genoa`Tortona`20`10
+
+
+Road`Piacenza`Tortona`25`10
+Site`9.700556`45.047778`11`Piacenza`Former colony of the Etruscans, then the Celts, then the Romans and later a connection between Rome and the Holy Roman Empire.
+Road`Piacenza`Pavia`17`10
+Site` 9.15`45.183333`9`Pavia`Early Roman war camp, became central in the wars during the fall of Rome.//Ticinum
+Road`Tortona`Pavia`16`10
+Site`10.328`44.801472`Parma`14`City conquered to protect Rome during the republic era. It continued to serve that purpose through the middle ages and into the Napoleaonic wars.
+Road`Parma`Piacenza`19`10 
+Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings`//Luna
+Road`Luni`Parma`36`8
+Road`Luni`Genoa`35`9
+
+
+
 Road`
 Road`
 Road`
 Road`
 Road`
 Road`
+
