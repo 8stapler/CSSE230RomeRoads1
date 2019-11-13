@@ -33,7 +33,7 @@ public class MainUI extends JFrame{
 			GridBagConstraints gbc = new GridBagConstraints();
 			setLayout(new GridBagLayout());
 			gbc.anchor = GridBagConstraints.NORTHWEST;
-			gbc.insets = new Insets(0, 65, 0, 0);
+			gbc.insets = new Insets(0, 75, 0, 0);
 			
 			JLabel label = new JLabel("Roman Roads");
 			label.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -44,7 +44,7 @@ public class MainUI extends JFrame{
 			gbc.weighty = 1;
 			add(label, gbc);
 			
-			gbc.insets = new Insets(20, 10, 60, 0);
+			gbc.insets = new Insets(20, 20, 60, 0);
 			
 			JButton b1 = new JButton("Browse Sites");
 			gbc.ipadx = 150;
@@ -64,6 +64,13 @@ public class MainUI extends JFrame{
 			b3.addActionListener(new PlannerMenuListener());
 			b3.setPreferredSize(new Dimension(80, 40));
 			add(b3, gbc);
+			
+			MapComponent map = new MapComponent();
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			gbc.weightx = 50;
+			gbc.gridheight = 4;
+			add(map, gbc);
 		}
 	}
 }
