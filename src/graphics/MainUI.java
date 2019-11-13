@@ -29,59 +29,48 @@ public class MainUI extends JFrame{
 	
 	public class MainMenu extends JPanel{
 		
-		JButton b1, b2, b3;
-		JLabel l1;
-		GridBagConstraints gbc = new GridBagConstraints();
-		
 		public MainMenu() {
-			
+			GridBagConstraints gbc = new GridBagConstraints();
 			setLayout(new GridBagLayout());
-			
 			gbc.anchor = GridBagConstraints.NORTHWEST;
+			gbc.insets = new Insets(0, 75, 0, 0);
 			
-			gbc.insets = new Insets(0, 65, 0, 0);
-			
-			l1 = new JLabel("Roman Roads");
-			l1.setFont(new Font("Verdana", Font.PLAIN, 18));
+			JLabel label = new JLabel("Roman Roads");
+			label.setFont(new Font("Verdana", Font.PLAIN, 18));
 			gbc.fill = GridBagConstraints.VERTICAL;
-			gbc.ipadx = 150;
 			gbc.gridx = 0;
 			gbc.gridy = 0;
-			gbc.gridwidth = 1;
 			gbc.weightx = 1;
 			gbc.weighty = 1;
-			add(l1, gbc);
+			add(label, gbc);
 			
-			gbc.insets = new Insets(20, 10, 60, 0);
+			gbc.insets = new Insets(20, 20, 60, 0);
 			
-			b1 = new JButton("Browse Sites");
-			gbc.fill = GridBagConstraints.VERTICAL;
-			gbc.gridx = 0;
+			JButton b1 = new JButton("Browse Sites");
+			gbc.ipadx = 150;
 			gbc.gridy = 1;
-			gbc.gridwidth = 1;
-			gbc.weightx = 1;
-			gbc.weighty = 1;
 			b1.addActionListener(new SiteMenuListener());
 			b1.setPreferredSize(new Dimension(80, 40));
 			add(b1, gbc);
 			
-			b2 = new JButton("Search Routes"); 
-			gbc.fill = GridBagConstraints.VERTICAL;
-			gbc.gridx = 0;
+			JButton b2 = new JButton("Search Routes"); 
 			gbc.gridy = 2;
-			gbc.gridwidth = 1;
-			gbc.weightx = 1;
+			b2.addActionListener(new RouteMenuListener());
 			b2.setPreferredSize(new Dimension(80, 40));
 			add(b2, gbc);
 			
-			b3 = new JButton("Trip Planner"); 
-			gbc.fill = GridBagConstraints.VERTICAL;
-			gbc.gridx = 0;
+			JButton b3 = new JButton("Trip Planner"); 
 			gbc.gridy = 3;
-			gbc.gridwidth = 1;
-			gbc.weightx = 1;
+			b3.addActionListener(new PlannerMenuListener());
 			b3.setPreferredSize(new Dimension(80, 40));
 			add(b3, gbc);
+			
+			MapComponent map = new MapComponent();
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			gbc.weightx = 50;
+			gbc.gridheight = 4;
+			add(map, gbc);
 		}
 	}
 }

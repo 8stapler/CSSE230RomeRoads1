@@ -1,3 +1,4 @@
+package code;
 
 import graphics.MainUI;
 
