@@ -70,6 +70,9 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			
 			current=unknown.poll();
 			
+			if(current.getMySite().getDistFrom()==Integer.MAX_VALUE) {
+				return null; //no path
+			}
 			
 			if(current.getMySite().toString().equals(end.toString())) {
 				break;
@@ -77,7 +80,6 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			
 			for(Road r: current.getMySite().getRoads()) {
 				
-				//Never Goes here but it should : WHY?
 				
 				int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
 				
