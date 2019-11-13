@@ -104,7 +104,7 @@ Site` 9.15`45.183333`9`Pavia`Early Roman war camp, became central in the wars du
 //Luna
 Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings
 
-//Ticinum
+
 
 Road`Genoa`Tortona`20`10
 
@@ -120,12 +120,10 @@ Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It be
 Road`Luni`Parma`36`8
 Road`Luni`Genoa`35`9
 
+Road`Luni`Pisa`17`8
+Road`Luni`Lucca`18`8
+Road`Parma`Modena`17`8
+Road`Bologna`Faenza`16`8
+Road`Bologna`Modena`13`8
 
-
-Road`
-Road`
-Road`
-Road`
-Road`
-Road`
 
