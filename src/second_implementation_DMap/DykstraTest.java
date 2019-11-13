@@ -16,13 +16,13 @@ import second_implementation_DMap.DykstraMap.Path;
 public class DykstraTest {
 	DykstraMap m = new DykstraMap();
 	
-	Site site1 = m.new Site(0,0,0,"1", "desc1", null);
-	Site site2 = m.new Site(0,0,0,"2", "desc2", null);
-	Site site3 = m.new Site(0,0,0,"3", "desc3", null);
-	Site site4 = m.new Site(0,0,0,"4", "desc4", null);
-	Site site5 = m.new Site(0,0,0,"5", "desc5", null);
-	Site site6 = m.new Site(0,0,0,"6", "desc6", null);
-	Site site7 = m.new Site(0,0,0,"7", "desc7", null);
+	Site site1 = m.new Site(0,0,0,"1", "desc1", new ArrayList<Road>());
+	Site site2 = m.new Site(0,0,0,"2", "desc2", new ArrayList<Road>());
+	Site site3 = m.new Site(0,0,0,"3", "desc3", new ArrayList<Road>());
+	Site site4 = m.new Site(0,0,0,"4", "desc4", new ArrayList<Road>());
+	Site site5 = m.new Site(0,0,0,"5", "desc5", new ArrayList<Road>());
+	Site site6 = m.new Site(0,0,0,"6", "desc6", new ArrayList<Road>());
+	Site site7 = m.new Site(0,0,0,"7", "desc7", new ArrayList<Road>());
 	
 	Road r1_2 = m.new Road("1-2", site2, 10, 3);
 	Road r2_1 = m.new Road("2-1", site1, 10, 3);
@@ -47,48 +47,37 @@ public class DykstraTest {
 	
 	ArrayList<Road> roads = new ArrayList<Road>();
 	
-	roads.add(r1_2);
-	roads.add(r1_3);
-	roads.add(r1_4);
+	site1.getRoads().add(r1_2);
+	site1.getRoads().add(r1_3);
+	site1.getRoads().add(r1_4);
 	
-	site1.setRoads(roads);
-	roads.clear();
 	
-	roads.add(r2_1);
-	roads.add(r2_3);
-	roads.add(r2_5);
+	site2.getRoads().add(r2_1);
+	site2.getRoads().add(r2_3);
+	site2.getRoads().add(r2_5);
 	
-	site2.setRoads(roads);
-	roads.clear();
 	
-	roads.add(r3_1);
-	roads.add(r3_2);
-	roads.add(r3_6);
+	site3.getRoads().add(r3_1);
+	site3.getRoads().add(r3_2);
+	site3.getRoads().add(r3_6);
 	
-	site3.setRoads(roads);
-	roads.clear();
 	
-	roads.add(r4_1);
-	roads.add(r4_6);
 	
-	site4.setRoads(roads);
-	roads.clear();
+	site4.getRoads().add(r4_1);
+	site4.getRoads().add(r4_6);
 	
-	roads.add(r5_2);
-	roads.add(r5_7);
 	
-	site5.setRoads(roads);
-	roads.clear();
 	
-	roads.add(r6_3);
-	roads.add(r6_4);
-	roads.add(r6_7);
+	site5.getRoads().add(r5_2);
+	site5.getRoads().add(r5_7);
 	
-	site6.setRoads(roads);
-	roads.clear();
+	site6.getRoads().add(r6_3);
+	site6.getRoads().add(r6_4);
+	site6.getRoads().add(r6_7);
+
 	
-	roads.add(r7_5);
-	roads.add(r7_6);
+	site7.getRoads().add(r7_5);
+	site7.getRoads().add(r7_6);
 	
 	site7.setRoads(roads);
 	roads.clear();
