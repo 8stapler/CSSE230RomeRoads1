@@ -93,6 +93,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 
 		//Set up known arrayList & unknown priorityQueue
 		start.setDistFrom(0);
+		start.setSceneFrom(0);
 		
 		ArrayList<CostCompSite> known = new ArrayList<CostCompSite>();
 		PriorityQueue<CostCompSite> unknown = new PriorityQueue<CostCompSite>();
@@ -106,14 +107,10 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		
 		//Calculate distTo Current's neighbors until current is destination
 		CostCompSite current = start.getCostComp();
-		
-		System.out.println(bannedRoads);
-		
-		for(Road r:bannedRoads) {
-			
-		}
+
 		
 		while(unknown.peek()!=null) {
+			
 			
 			current=unknown.poll();
 			known.add(current);
@@ -130,12 +127,13 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			for(Road r: current.getMySite().getRoads()) {
 				
 				if(!known.contains(r.destination.costComp)) {
-					
 				if(!bannedRoads.contains(r)) {
 					int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
+					int sceneFromHere = current.getMySite().getSceneFrom()+r.getBeauty();
 					
 					if(distFromHere < r.getSite().getDistFrom()) {
 						r.getSite().setDistFrom(distFromHere);
+						r.getSite().setSceneFrom(sceneFromHere);
 						
 						//Make able to trace back to start (determine path)
 						r.getSite().setToRoad(r);
@@ -164,9 +162,17 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			
 		}
 		Path result = new Path(temp);
-		//System.out.println("Path "+result+" found\n");
 		result.dCost = end.distFrom;
 		result.sCost = end.sceneFrom;
+		
+		//Reset sites to how they were before
+		for(Site s: fullGraph) {
+			s.setPrevSite(null);
+			s.setToRoad(null);
+			s.setDistFrom(Integer.MAX_VALUE);
+			s.setSceneFrom(Integer.MAX_VALUE);
+		}
+		
 		return result;
 		
 	}
@@ -229,14 +235,17 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		PriorityQueue<Path> solutions = new PriorityQueue<Path>();
 		PriorityQueue<Path> solvedSolns = new PriorityQueue<Path>();
 		
-		Path shortest = shortestPath(start,end,fullGraph,new ArrayList<Road>());//the first shortest path
-		solutions.add(shortest);
+		Path shortest = shortestPath(start ,end ,fullGraph ,new ArrayList<Road>());//the first shortest path
 		Path result = shortest;
-		if((shortest.dCost)>maxCost)return null;
-		int i=0;
+		System.out.println("Maxlen: "+maxCost);
+		if(shortest.dCost<=maxCost) {
+		solutions.add(shortest);
+		}
+		else {
+			return new Path(new LinkedList<Road>());
+		}
 		
-		while((solutions.peek()!=null && solutions.peek().dCost<maxCost) && i<5) {
-			i++;
+		while((solutions.peek()!=null && solutions.peek().dCost<=maxCost)) {
 			Path problem = solutions.poll();//take current shortest path and
 			
 			solvedSolns.add(problem);
@@ -247,23 +256,24 @@ public class DykstraMap<E extends Comparable<?super E>> {
 				tempBan.addAll(problem.getBannedRoads());
 				
 				Path p = shortestPath(start, end, fullGraph, tempBan);
-				p.setBannedRoads(tempBan);
+				
 				if(p!=null) {
-					solutions.add(p);
+					p.setBannedRoads(tempBan);
+					if(p.dCost<=maxCost) solutions.add(p);
 				}
 			}
 			
 			
 			
 		}
-		//System.out.println("Solutions " +solutions+"\n");
+		solvedSolns.addAll(solutions);
+		
 		for (Path p: solvedSolns) {
 			
 			if(result.sCost<p.sCost) {
 				result = p;
 			}
 		}
-		//System.out.println("Final result " +result+"\n\n");
 		
 		return result;
 	} 
@@ -484,8 +494,10 @@ public class Path extends ArrayList<Road> implements Comparable{
 		public Path(LinkedList<Road> roads) {
 			super(roads);
 			bannedRoads = new ArrayList<Road>();
+			if(!roads.isEmpty()) {
 			sCost=roads.getLast().getSite().getSceneFrom();
 			dCost=roads.getLast().getSite().getDistFrom();
+			}
 		}
 		
 		public ArrayList<Road> getBannedRoads(){
