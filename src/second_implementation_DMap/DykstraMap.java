@@ -1,10 +1,17 @@
 package second_implementation_DMap;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
+
+import code.Road;
+import code.Site;
 
 
 public class DykstraMap<E extends Comparable<?super E>> {
@@ -50,7 +57,40 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	public TreeSet<Site> getSiteList() {
 		return siteList;
 	}
-	
+	public void generateMap(String filename) throws Exception{
+		File file = new File(filename);
+		BufferedReader in = new BufferedReader(new FileReader(file));
+		
+		String line;
+		in.mark(1000000);
+		while((line=in.readLine())!=null) {//go through the lines looking to add sites
+			
+			String[] temp=line.split("\t|`");
+			System.out.println(Arrays.toString(temp));
+			if(temp[0].equals("Site")) {
+				double x= Double.parseDouble(temp[1]);
+				double y= Integer.parseInt(temp[2]);
+				int hist= Integer.parseInt(temp[3]);
+				String name= temp[4];
+				add(new Site(x,y,hist,name,temp[5],new ArrayList<Road>())); //csv has Site| x|y|history|name|description
+			}
+		}
+		in.reset(); //read back through the file for roads
+		while((line=in.readLine())!=null) {
+			String[] temp=line.split("\t|`");
+			if(temp[0].equals("Road")) {
+				//road lines are in the form Road`start`end`dist`beut
+				String startName=temp[1];
+				String stopName=temp[2];
+				int time = Integer.parseInt(temp[3]);
+				int beut= Integer.parseInt(temp[4]);
+				Site end1= sites.get(startName), end2= sites.get(stopName);
+				if(end1!=null&end2!=null)
+					addTwoRoads(end1,end2,beut,time);
+			}
+		}
+		in.close();
+	}	
 	public Path shortestPath(Site start, Site end, TreeSet<Site> fullGraph){
 
 		//Set up known arrayList & unknown priorityQueue
@@ -99,6 +139,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			}
 			
 		}
+		
 		//At this point, we should have the shortest path
 		//Work back from end to get shortest path
 			
@@ -114,6 +155,11 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		}
 		return new Path(temp);
 		
+	}
+	
+	private void addTwoRoads(Site end1, Site end2,int  beut, int time) {
+		end1.addRoad(new Road(end1.getName(),end2,beut,time));
+		end2.addRoad(new Road(end2.getName(),end1,beut,time));
 	}
 	
 	public ArrayList<Site> tripPlanner(Site start, int maxCost, TreeSet<Site> fullGraph){ //Pass in Integer.MAX_VALUE for maxCost to get array list of Sites (with distances from start & names)
@@ -184,11 +230,11 @@ public class CostCompSite implements Comparable{
 	public int compareTo(Object otherSite) {
 		int compare =mySite.getDistFrom()-(((CostCompSite)otherSite).mySite.getDistFrom());
 		
-		if(compare==0)return 0; 
-			
+		if (compare==0) return 0; 
 			
 		return compare/Math.abs(compare);
 	}
+	
 	public String toString() {
 		return mySite.toString();
 	}
@@ -201,8 +247,8 @@ public class CostCompSite implements Comparable{
 	
 public class Site implements Comparable {
 
-		private int xPos;
-		private int yPos;
+		private double xPos;
+		private double yPos;
 		private int hist;
 		private String name;
 		private String desc;
@@ -214,7 +260,7 @@ public class Site implements Comparable {
 		private Site prevSite;
 		private Road toRoad;
 		
-		public Site(int xPosition, int yPosition, int history, String name, String description, ArrayList<Road> roadybois) {
+		public Site(double xPosition, double yPosition, int history, String name, String description, ArrayList<Road> roadybois) {
 			
 			xPos=xPosition;
 			yPos=yPosition;
@@ -295,6 +341,9 @@ public class Site implements Comparable {
 		}
 		public void setHistFrom(int a) {
 			histFrom=a;
+		}
+		public void addRoad(Road roadyboi) {
+			roads.add(roadyboi);
 		}
 }
 

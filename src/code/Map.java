@@ -1,7 +1,6 @@
 package code;
 
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -44,6 +43,7 @@ public class Map<E extends Comparable<?super E>> {
 		sites.remove(toKill.getName());
 		return removed;
 	}
+	
 	public ArrayList<String> listSites(){
 		ArrayList<String> temp = new ArrayList<String>(siteList.size());
 		for(Site site:siteList) {
