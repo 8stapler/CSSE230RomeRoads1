@@ -69,6 +69,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		while(unknown.peek()!=null) {
 			
 			current=unknown.poll();
+			known.add(current);
 			
 			if(current.getMySite().getDistFrom()==Integer.MAX_VALUE) {
 				return null; //no path
@@ -113,6 +114,53 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		}
 		return new Path(temp);
 		
+	}
+	
+	public ArrayList<Site> tripPlanner(Site start, int maxCost, TreeSet<Site> fullGraph){
+		//Set up known arrayList & unknown priorityQueue
+				start.setDistFrom(0);
+				
+				ArrayList<Site> known = new ArrayList<Site>();
+				PriorityQueue<CostCompSite> unknown = new PriorityQueue<CostCompSite>();
+				
+				for(Site s: fullGraph) {
+					unknown.add(s.getCostComp());
+				}
+				
+				//Calculate distTo Current's neighbors until current is destination
+				CostCompSite current = start.getCostComp();
+				
+				while(unknown.peek()!=null) {
+					
+					current = unknown.poll();
+					
+					if(current.getMySite()==null || current.getMySite().getDistFrom()==Integer.MAX_VALUE) {
+						break;
+					}
+					
+					known.add(current.mySite);
+					
+					for(Road r: current.getMySite().getRoads()) {
+						
+						
+						int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
+						
+						if(distFromHere < r.getSite().getDistFrom() && distFromHere <= maxCost) {
+							r.getSite().setDistFrom(distFromHere);
+							
+							//Make able to trace back to start (determine path)
+							r.getSite().setToRoad(r);
+							r.getSite().setPrevSite(current.getMySite());
+							
+							//Update priorityQueue
+							unknown.remove(r.getSite().getCostComp());
+							unknown.add(r.getSite().getCostComp());
+						}
+						
+					}
+					
+				}
+		return known;
 	}
 	
 	

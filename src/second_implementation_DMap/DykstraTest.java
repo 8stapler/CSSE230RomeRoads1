@@ -152,4 +152,25 @@ public class DykstraTest {
 		Path sp = m.new Path(spbase);
 		assertEquals(sp,(m.shortestPath(site4, site5,m.getSiteList())));
 	}
+	
+	@Test
+	public void testTripPlanner() {
+		testDykstraConstruct();
+		ArrayList<Site> destinations = new ArrayList<Site>();
+		destinations.add(site3);
+		destinations.add(site2);
+		destinations.add(site6);
+		
+		assertEquals(destinations, m.tripPlanner(site3, 3, m.getSiteList()));
+		destinations.clear();
+		
+		destinations.add(site3);
+		destinations.add(site2);
+		destinations.add(site6);
+		destinations.add(site8);
+		destinations.add(site7);
+		destinations.add(site1);
+		
+		assertEquals(destinations, m.tripPlanner(site3,  6, m.getSiteList()));
+	}
 }
