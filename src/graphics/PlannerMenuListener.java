@@ -50,12 +50,10 @@ public class PlannerMenuListener implements ActionListener {
 			panel.setBorder(new EmptyBorder(new Insets(50, 0, 0, 0)));
 			
 			try {
-				map.generateMap("C:\\Users\\stapler\\git\\CSSE230RomeRoads3\\src\\code\\test.txt");
+				map.generateMap("C:\\\\Users\\\\stapler\\\\git\\\\CSSE230RomeRoads3\\\\src\\\\code\\\\Roma.txt");
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-			TreeSet<Site> siteList = map.getSiteList();
-			Site[] sites = new Site[siteList.size()];
 			String[] siteStrings = new String[siteList.size()]; 
 			int i = 0;
 			for (Site site : siteList) {
@@ -64,7 +62,7 @@ public class PlannerMenuListener implements ActionListener {
 			}
 
 			 
-			String testCost[] = {"time", "distance"};
+			String testCost[] = {"scenic", "distance"};
 			
 			JLabel costText = new JLabel("Find a route with:");
 			costText.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -109,13 +107,13 @@ public class PlannerMenuListener implements ActionListener {
 			
 			
        		if (e.getSource() == cost || e.getSource() == site) { 
+       			route.setText("");
        			if(amount.getText().equals("")) {
        				route.setText("Enter a value");
        			}
        			else {
-       			ArrayList<Path> path = map.tripPlanner(x, Integer.parseInt(amount.getText()), map.getSiteList());
-       			route.setText(path.toString());
-       			//route.setText("Trip starting at " + site.getSelectedItem() + " with " + amount.getText() + " " + cost.getSelectedItem()); 
+       				ArrayList<Path> path = map.tripPlanner(x, Integer.parseInt(amount.getText()), map.getSiteList());
+       				route.setText("<html><p>" + path.toString() + "</p></html>\"");
        			}
        		} 
 		}

@@ -67,7 +67,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			System.out.println(Arrays.toString(temp));
 			if(temp[0].equals("Site")) {
 				double x= Double.parseDouble(temp[1]);
-				double y= Integer.parseInt(temp[2]);
+				double y= Double.parseDouble(temp[2]);
 				int hist= Integer.parseInt(temp[3]);
 				String name= temp[4];
 				add(new Site(x,y,hist,name,temp[5],new ArrayList<Road>())); //csv has Site| x|y|history|name|description
