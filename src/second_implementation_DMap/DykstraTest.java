@@ -25,35 +25,35 @@ public class DykstraTest {
 	Site site7 = m.new Site(0,0,0,"7", "desc7", new ArrayList<Road>());
 	Site site8 = m.new Site(0,0,0,"8", "desc8", new ArrayList<Road>());
 	
-	Road r1_8 = m.new Road("1-2", site8, -1, 1);
-	Road r8_1 = m.new Road("2-1", site1, -1, 1);
+	Road r1_8 = m.new Road("1-8", site8, 1, 1);
+	Road r8_1 = m.new Road("8-1", site1, 1, 1);
 	
-	Road r1_3 = m.new Road("1-3", site3, -5, 7);
-	Road r3_1 = m.new Road("3-1", site1, -5, 7);
+	Road r1_3 = m.new Road("1-3", site3, 5, 7);
+	Road r3_1 = m.new Road("3-1", site1, 5, 7);
 	
-	Road r1_4 = m.new Road("1-4", site4, -7, 7);
-	Road r4_1 = m.new Road("4-1", site1, -7, 7);
+	Road r1_4 = m.new Road("1-4", site4, 7, 7);
+	Road r4_1 = m.new Road("4-1", site1, 7, 7);
 	
-	Road r2_8 = m.new Road("2-8", site8, -2, 2);
-	Road r8_2 = m.new Road("8-2", site2, -2, 2);
+	Road r2_8 = m.new Road("2-8", site8, 2, 2);
+	Road r8_2 = m.new Road("8-2", site2, 2, 2);
 	
-	Road r2_3 = m.new Road("2-3", site3, -3, 3);
-	Road r3_2 = m.new Road("3-2", site2, -3, 3);
+	Road r2_3 = m.new Road("2-3", site3, 3, 3);
+	Road r3_2 = m.new Road("3-2", site2, 3, 3);
 	
-	Road r3_6 = m.new Road("3-6", site6, -3, 3);
-	Road r6_3 = m.new Road("6-3", site3, -3, 3);
+	Road r3_6 = m.new Road("3-6", site6, 3, 3);
+	Road r6_3 = m.new Road("6-3", site3, 3, 3);
 	
-	Road r4_6 = m.new Road("4-6", site6, -4, 4);
-	Road r6_4 = m.new Road("6-4", site4, -4, 4);
+	Road r4_6 = m.new Road("4-6", site6, 4, 4);
+	Road r6_4 = m.new Road("6-4", site4, 4, 4);
 	
-	Road r2_5 = m.new Road("2-5", site5, -5, 5);
-	Road r5_2 = m.new Road("5-2", site2, -5, 5);
+	Road r2_5 = m.new Road("2-5", site5, 5, 5);
+	Road r5_2 = m.new Road("5-2", site2, 5, 5);
 	
-	Road r5_7 = m.new Road("5-7", site7, -2, 2);
-	Road r7_5 = m.new Road("7-5", site5, -2, 2);
+	Road r5_7 = m.new Road("5-7", site7, 2, 2);
+	Road r7_5 = m.new Road("7-5", site5, 2, 2);
 	
-	Road r6_7 = m.new Road("6-7", site7, -3, 3);
-	Road r7_6 = m.new Road("7-6", site6, -3, 3);
+	Road r6_7 = m.new Road("6-7", site7, 3, 3);
+	Road r7_6 = m.new Road("7-6", site6, 3, 3);
 	
 	public void testDykstraConstruct() {//tests constructors + makes the graph we'll use for the rest of the tests
 	
@@ -110,7 +110,7 @@ public class DykstraTest {
 		spbase.add(r1_8);
 		spbase.add(r8_2);
 		Path sp = m.new Path(spbase);
-		assertEquals(sp,(m.shortestPath(site1, site2, m.getSiteList())));
+		assertEquals(sp,(m.shortestPath(site1, site2, m.getSiteList(),new ArrayList<Road>())));
 		
 		
 	}
@@ -124,7 +124,7 @@ public class DykstraTest {
 		spbase.add(r8_2);
 		spbase.add(r2_3);
 		Path sp = m.new Path(spbase);
-		assertEquals(sp,(m.shortestPath(site1, site3,m.getSiteList())));
+		assertEquals(sp,(m.shortestPath(site1, site3,m.getSiteList(),new ArrayList<Road>())));
 	}
 	
 
@@ -137,7 +137,7 @@ public class DykstraTest {
 		spbase.add(r6_7);
 		
 		Path sp = m.new Path(spbase);
-		assertEquals(sp,(m.shortestPath(site4, site7,m.getSiteList())));
+		assertEquals(sp,(m.shortestPath(site4, site7,m.getSiteList(),new ArrayList<Road>())));
 	}
 	
 	@Test
@@ -150,7 +150,7 @@ public class DykstraTest {
 		spbase.add(r7_5);
 		
 		Path sp = m.new Path(spbase);
-		assertEquals(sp,(m.shortestPath(site4, site5,m.getSiteList())));
+		assertEquals(sp,(m.shortestPath(site4, site5,m.getSiteList(),new ArrayList<Road>())));
 	}
 	
 	@Test
@@ -179,11 +179,27 @@ public class DykstraTest {
 		testDykstraConstruct();
 		LinkedList<Road> spbase = new LinkedList<Road>();
 		
+		spbase.add(r1_8);
+		spbase.add(r8_2);
+		Path sp = m.new Path(spbase);
+		spbase.clear();
+		assertEquals(null, m.scenestPath(site1, site2, 0, m.getSiteList()));
+		assertEquals(sp,m.scenestPath(site1, site2, 3, m.getSiteList()));
+		
 		spbase.add(r1_3);
 		spbase.add(r3_2);
 		
-		Path sp = m.new Path(spbase);
+		sp = m.new Path(spbase);
+		spbase.clear();
+		assertEquals(sp,m.scenestPath(site1, site2, 11, m.getSiteList()));
 		
-		assertEquals(sp,m.scenestPath(site1, site2, 4, m.getSiteList()));
+		spbase.add(r1_4);
+		spbase.add(r4_6);
+		spbase.add(r6_3);
+		spbase.add(r3_2);
+		sp = m.new Path(spbase);
+		spbase.clear();
+		assertEquals(sp,m.scenestPath(site1, site2, 17, m.getSiteList()));
+		
 	}
 }

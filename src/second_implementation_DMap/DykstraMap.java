@@ -89,7 +89,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		}
 		in.close();
 	}	
-	public Path shortestPath(Site start, Site end, TreeSet<Site> fullGraph){
+	public Path shortestPath(Site start, Site end, TreeSet<Site> fullGraph, ArrayList<Road> bannedRoads){
 
 		//Set up known arrayList & unknown priorityQueue
 		start.setDistFrom(0);
@@ -97,12 +97,21 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		ArrayList<CostCompSite> known = new ArrayList<CostCompSite>();
 		PriorityQueue<CostCompSite> unknown = new PriorityQueue<CostCompSite>();
 		
+		ArrayList<Road> myBanned = new ArrayList<Road>();
+		myBanned.addAll(bannedRoads);
+		
 		for(Site s: fullGraph) {
 			unknown.add(s.getCostComp());
 		}
 		
 		//Calculate distTo Current's neighbors until current is destination
 		CostCompSite current = start.getCostComp();
+		
+		System.out.println(bannedRoads);
+		
+		for(Road r:bannedRoads) {
+			
+		}
 		
 		while(unknown.peek()!=null) {
 			
@@ -114,25 +123,30 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			}
 			
 			if(current.getMySite().toString().equals(end.toString())) {
+				
 				break;
 			}
 			
 			for(Road r: current.getMySite().getRoads()) {
 				
-				
-				int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
-				
-				if(distFromHere < r.getSite().getDistFrom()) {
-					r.getSite().setDistFrom(distFromHere);
+				if(!known.contains(r.destination.costComp)) {
 					
-					//Make able to trace back to start (determine path)
-					r.getSite().setToRoad(r);
-					r.getSite().setPrevSite(current.getMySite());
+				if(!bannedRoads.contains(r)) {
+					int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
 					
-					//Update priorityQueue
-					unknown.remove(r.getSite().getCostComp());
-					unknown.add(r.getSite().getCostComp());
+					if(distFromHere < r.getSite().getDistFrom()) {
+						r.getSite().setDistFrom(distFromHere);
+						
+						//Make able to trace back to start (determine path)
+						r.getSite().setToRoad(r);
+						r.getSite().setPrevSite(current.getMySite());
+						
+						//Update priorityQueue
+						unknown.remove(r.getSite().getCostComp());
+						unknown.add(r.getSite().getCostComp());
+					}
 				}
+			  }
 				
 			}
 			
@@ -140,8 +154,6 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		
 		//At this point, we should have the shortest path
 		//Work back from end to get shortest path
-			
-		
 		
 		
 		LinkedList<Road>temp = new LinkedList<Road>();
@@ -151,7 +163,11 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			current=current.getMySite().getPrevSite().getCostComp();
 			
 		}
-		return new Path(temp);
+		Path result = new Path(temp);
+		//System.out.println("Path "+result+" found\n");
+		result.dCost = end.distFrom;
+		result.sCost = end.sceneFrom;
+		return result;
 		
 	}
 	
@@ -210,74 +226,46 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	
 	public Path scenestPath(Site start, Site end, int maxCost, TreeSet<Site> fullGraph) { // Will only check at most the first 100,000 short paths (calculated)
 		
-		//Set up known arrayList & unknown priorityQueue
-		start.setDistFrom(0);
-		start.setSceneFrom(0);
+		PriorityQueue<Path> solutions = new PriorityQueue<Path>();
+		PriorityQueue<Path> solvedSolns = new PriorityQueue<Path>();
 		
-		ArrayList<SceneCompSite> known = new ArrayList<SceneCompSite>();
-		PriorityQueue<SceneCompSite> unknown = new PriorityQueue<SceneCompSite>();
+		Path shortest = shortestPath(start,end,fullGraph,new ArrayList<Road>());//the first shortest path
+		solutions.add(shortest);
+		Path result = shortest;
+		if((shortest.dCost)>maxCost)return null;
+		int i=0;
 		
-		for(Site s: fullGraph) {
+		while((solutions.peek()!=null && solutions.peek().dCost<maxCost) && i<5) {
+			i++;
+			Path problem = solutions.poll();//take current shortest path and
 			
-			unknown.add(s.getSceneComp());
-		}
-		
-		//Calculate distTo Current's neighbors until current is destination
-		SceneCompSite current = start.getSceneComp();
-		
-		while(unknown.peek()!=null) {
+			solvedSolns.add(problem);
 			
-			current=unknown.peek();
-			known.add(current);
-			
-			if(current.getMySite().getDistFrom()==Integer.MAX_VALUE) {
-				return null; //no path
-			}
-			
-			if(current.getMySite().toString().equals(end.toString())) {
-				break;
-			}
-			
-			for(Road r: current.getMySite().getRoads()) {
+			for(Road r: problem) {			//find the shortest path for similar graphs( -1 road )
+				ArrayList<Road> tempBan = new ArrayList<Road>();
+				tempBan.add(r);
+				tempBan.addAll(problem.getBannedRoads());
 				
-				
-				int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
-				int sceneFromHere = current.getMySite().getSceneFrom() + r.getBeauty();
-				
-				if(distFromHere <= maxCost) {
-					r.getSite().setDistFrom(distFromHere);
-					r.getSite().setSceneFrom(sceneFromHere);
-					
-					//Make able to trace back to start (determine path)
-					r.getSite().setToRoad(r);
-					r.getSite().setPrevSite(current.getMySite());
-					
-					//Update priorityQueue
-					unknown.remove(r.getSite().getSceneComp());
-					unknown.add(r.getSite().getSceneComp());
+				Path p = shortestPath(start, end, fullGraph, tempBan);
+				p.setBannedRoads(tempBan);
+				if(p!=null) {
+					solutions.add(p);
 				}
-				
 			}
 			
-		}
-		//At this point, we should have the shortest path
-		//Work back from end to get shortest path
 			
-		
-		
-		
-		LinkedList<Road>temp = new LinkedList<Road>();
-		while(current!=null && current.getMySite().getToRoad()!=null) {
-			
-			temp.addFirst(current.getMySite().getToRoad());
-			current=current.getMySite().getPrevSite().getSceneComp();
 			
 		}
-		Path result = new Path(temp);
-		result.dCost = end.distFrom;
-		result.sCost = end.sceneFrom;
-		return new Path(temp);
-
+		//System.out.println("Solutions " +solutions+"\n");
+		for (Path p: solvedSolns) {
+			
+			if(result.sCost<p.sCost) {
+				result = p;
+			}
+		}
+		//System.out.println("Final result " +result+"\n\n");
+		
+		return result;
 	} 
 	
 
@@ -306,8 +294,14 @@ public class SceneCompSite implements Comparable{
 	public Site getMySite() {
 		return mySite;
 	}
-}
 	
+	public void setPrevSites(ArrayList<Site> a) {
+		prevSites = a;
+	}
+	public ArrayList<Site> getPrevSites(){
+		return prevSites;
+	}
+}
 	
 public class CostCompSite implements Comparable{
 
@@ -465,6 +459,9 @@ public class Road{
 		return beauty;
 	}
 	
+	public String toString() {
+		return name;
+	}
 	public int getTimeCost() {
 		return timeCost;
 	}
@@ -477,16 +474,26 @@ public class Road{
 	
 }
 
-public class Path extends ArrayList<Road>{
+public class Path extends ArrayList<Road> implements Comparable{
 
+	
+		private ArrayList<Road> bannedRoads;
 		private int sCost;
 		private int dCost;
-		private int length;
 		
 		public Path(LinkedList<Road> roads) {
 			super(roads);
-			sCost=0;
-			dCost=0;
+			bannedRoads = new ArrayList<Road>();
+			sCost=roads.getLast().getSite().getSceneFrom();
+			dCost=roads.getLast().getSite().getDistFrom();
+		}
+		
+		public ArrayList<Road> getBannedRoads(){
+			return bannedRoads;
+		}
+		public void setBannedRoads(ArrayList<Road> a) {
+			bannedRoads=new ArrayList<Road>();
+			bannedRoads.addAll(a);
 		}
 		
 		public String toString() {
@@ -495,6 +502,16 @@ public class Path extends ArrayList<Road>{
 				result.add(r.getName());
 			}
 			return result.toString();
+		}
+
+		@Override
+		public int compareTo(Object o) {
+			
+			int result = dCost-((Path) o).dCost;
+			
+			if(result == 0) return 0;
+			
+			return result/Math.abs(result);
 		}
 	}
 
