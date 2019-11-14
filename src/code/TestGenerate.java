@@ -13,7 +13,7 @@ public class TestGenerate {
 	public static void main(String[] args) throws Exception {
 		Map map = new Map();
 
-		map.generateMap("test.txt");
+		map.generateMap("code/Roma.txt");
 		System.out.println(map);
 	
 	}
