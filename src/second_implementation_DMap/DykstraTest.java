@@ -173,4 +173,17 @@ public class DykstraTest {
 		
 		assertEquals(destinations, m.tripPlanner(site3,  6, m.getSiteList()));
 	}
+	
+	@Test
+	public void testScenestPath() {
+		testDykstraConstruct();
+		LinkedList<Road> spbase = new LinkedList<Road>();
+		
+		spbase.add(r1_3);
+		spbase.add(r3_2);
+		
+		Path sp = m.new Path(spbase);
+		
+		assertEquals(sp,m.scenestPath(site1, site2, 4, m.getSiteList()));
+	}
 }
