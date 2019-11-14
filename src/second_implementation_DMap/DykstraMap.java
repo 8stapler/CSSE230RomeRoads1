@@ -165,77 +165,80 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	public Path scenestPath(Site start, Site end, int maxCost, TreeSet<Site> fullGraph) { // Will only check at most the first 100,000 short paths (calculated)
 		
 		//Set up known arrayList & unknown priorityQueue
-				start.setDistFrom(0);
-				start.setSceneFrom(0);
-				
-				ArrayList<SceneCompSite> known = new ArrayList<SceneCompSite>();
-				PriorityQueue<SceneCompSite> unknown = new PriorityQueue<SceneCompSite>();
-				
-				for(Site s: fullGraph) {
-					unknown.add(s.getSceneComp());
-				}
-				
-				//Calculate distTo Current's neighbors until current is destination
-				SceneCompSite current = start.getSceneComp();
-				
-				while(unknown.peek()!=null) {
-					
-					current=unknown.poll();
-					known.add(current);
-					
-					if(current.getMySite().getDistFrom()==Integer.MAX_VALUE) {
-						return null; //no path
-					}
-					
-					if(current.getMySite().toString().equals(end.toString())) {
-						break;
-					}
-					
-					for(Road r: current.getMySite().getRoads()) {
-						
-						
-						int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
-						int sceneFromHere = current.getMySite().getSceneFrom() + r.getBeauty();
-						
-						if(sceneFromHere < r.getSite().getSceneFrom() && distFromHere <= maxCost) {
-							r.getSite().setDistFrom(distFromHere);
-							r.getSite().setSceneFrom(sceneFromHere);
-							
-							//Make able to trace back to start (determine path)
-							r.getSite().setToRoad(r);
-							r.getSite().setPrevSite(current.getMySite());
-							
-							//Update priorityQueue
-							unknown.remove(r.getSite().getSceneComp());
-							unknown.add(r.getSite().getSceneComp());
-						}
-						
-					}
-					
-				}
-				//At this point, we should have the shortest path
-				//Work back from end to get shortest path
-					
-				
-				
-				
-				LinkedList<Road>temp = new LinkedList<Road>();
-				while(current!=null && current.getMySite().getToRoad()!=null) {
-					
-					temp.addFirst(current.getMySite().getToRoad());
-					current=current.getMySite().getPrevSite().getSceneComp();
-					
-				}
-				Path result = new Path(temp);
-				result.dCost = end.distFrom;
-				result.sCost = end.sceneFrom;
-				return new Path(temp);
+		start.setDistFrom(0);
+		start.setSceneFrom(0);
 		
+		ArrayList<SceneCompSite> known = new ArrayList<SceneCompSite>();
+		PriorityQueue<SceneCompSite> unknown = new PriorityQueue<SceneCompSite>();
+		
+		for(Site s: fullGraph) {
+			
+			unknown.add(s.getSceneComp());
+		}
+		
+		//Calculate distTo Current's neighbors until current is destination
+		SceneCompSite current = start.getSceneComp();
+		
+		while(unknown.peek()!=null) {
+			
+			current=unknown.peek();
+			known.add(current);
+			
+			if(current.getMySite().getDistFrom()==Integer.MAX_VALUE) {
+				return null; //no path
+			}
+			
+			if(current.getMySite().toString().equals(end.toString())) {
+				break;
+			}
+			
+			for(Road r: current.getMySite().getRoads()) {
+				
+				
+				int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
+				int sceneFromHere = current.getMySite().getSceneFrom() + r.getBeauty();
+				
+				if(distFromHere <= maxCost) {
+					r.getSite().setDistFrom(distFromHere);
+					r.getSite().setSceneFrom(sceneFromHere);
+					
+					//Make able to trace back to start (determine path)
+					r.getSite().setToRoad(r);
+					r.getSite().setPrevSite(current.getMySite());
+					
+					//Update priorityQueue
+					unknown.remove(r.getSite().getSceneComp());
+					unknown.add(r.getSite().getSceneComp());
+				}
+				
+			}
+			
+		}
+		//At this point, we should have the shortest path
+		//Work back from end to get shortest path
+			
+		
+		
+		
+		LinkedList<Road>temp = new LinkedList<Road>();
+		while(current!=null && current.getMySite().getToRoad()!=null) {
+			
+			temp.addFirst(current.getMySite().getToRoad());
+			current=current.getMySite().getPrevSite().getSceneComp();
+			
+		}
+		Path result = new Path(temp);
+		result.dCost = end.distFrom;
+		result.sCost = end.sceneFrom;
+		return new Path(temp);
+
 	} 
 	
 
 public class SceneCompSite implements Comparable{
 	private Site mySite;
+	
+	private ArrayList<Site> prevSites = new ArrayList<Site>();
 	
 	public SceneCompSite(Site s) {
 		
@@ -313,8 +316,8 @@ public class Site implements Comparable {
 			desc=description;
 			roads=roadybois;
 			distFrom=Integer.MAX_VALUE;
-			sceneFrom=-1;
-			histFrom=-1;
+			sceneFrom=Integer.MAX_VALUE;
+			histFrom=Integer.MAX_VALUE;
 			
 			costComp=new CostCompSite(this);
 			sceneComp=new SceneCompSite(this);
