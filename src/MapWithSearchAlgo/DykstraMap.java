@@ -13,7 +13,6 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	
 	HashMap<String,Site> sites;
 	TreeSet<Site> siteList;
-	private MyInteger pathCount;
 	private int minCost;
 	private ArrayList<Path> paths;
 	
@@ -23,7 +22,6 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		sites= new HashMap<String, Site>(approxSites);
 		siteList= new TreeSet<Site>();
 		paths = new ArrayList<Path>();
-		pathCount= new MyInteger(0);
 		minCost=-1;
 	}
 	
@@ -137,9 +135,89 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	}
 	
 	
-	public Path scenestPath(Site start, Site end, int maxCost) { // Will only check at most the first 100,000 short paths (calculated)
+	public Path scenestPath(Site start, Site end, int maxCost, TreeSet<Site> fullGraph) { // Will only check at most the first 100,000 short paths (calculated)
 		
-		return null;
+				//Set up list of sites.
+				//a site is known if we know the shortest distance to it
+				//a site is unknown if we don't
+				//Everything is initially unknown
+				
+				PriorityQueue<CostCompSite> unknown = new PriorityQueue<CostCompSite>();
+				ArrayList<CostCompSite> known = new ArrayList<CostCompSite>();
+				Path result;
+				
+				CostCompSite beginning = new CostCompSite(start);
+				beginning.setDistFrom(0);
+				unknown.add(beginning);
+				start.setCostComp(beginning);
+				
+				CostCompSite destination = new CostCompSite(end);
+				unknown.add(destination);
+				end.setCostComp(destination);
+				
+				for(Site s : fullGraph) {
+					if(s!=start && s!=end) {
+					s.setCostComp(new CostCompSite(s));
+					}
+				}
+				for(Site s : fullGraph) {
+					unknown.add(s.costComp);
+				}
+				
+				CostCompSite current;
+				
+				System.out.println("unknown: "+unknown.toString());
+				
+				while(!(unknown.isEmpty())) {
+					
+					current=unknown.poll();
+					known.add(current);
+					
+					if(current.getDistFrom()==Integer.MAX_VALUE) {
+						return null; //Node not connected to rest by roads
+					}
+					if(current==destination) {
+						if(current.toRoad==null)return null; //Start node was End node
+						
+						LinkedList<Road> goBetween = new LinkedList<Road>();
+						
+						while(current.toRoad!=null) {
+							goBetween.addFirst(current.toRoad);
+							current=current.prevSite;
+						}
+						
+						//Path is an array list because it's nice to have instant access to each 'path length'/ road
+						result = new Path(goBetween);
+						return result;
+					}
+					
+					for(Road r: current.roads) {
+						
+						//Add a condition to check if the road is banned later (for nth shortest path)
+						
+						CostCompSite neighbor = r.getSite();
+						if(!(known.contains(neighbor))){
+							
+							int distToNeighbor = current.getDistFrom()+r.getTimeCost();
+							
+							if(distToNeighbor<neighbor.getDistFrom()) {
+								neighbor.setDistFrom(distToNeighbor);
+								neighbor.toRoad=r;
+								neighbor.prevSite=current;
+								System.out.println(neighbor.getName()+" : "+neighbor.getDistFrom());
+								
+								//Update Heap
+								int index = unknown.indexOf(neighbor);
+								unknown.remove(index);
+								unknown.add(neighbor);
+							}
+						}
+					}
+					
+				}
+				
+				
+				return null; //not in graph
 	}
 	
 
@@ -298,22 +376,6 @@ public class Path extends ArrayList<Road>{
 			return result.toString();
 		}
 	}
-
-public class MyInteger{
-	
-	private int value;
-	
-	public MyInteger(int a) {
-		setValue(a);
-	}
-	
-	public void setValue(int a) {
-		value = a;
-	}
-	public int getValue() {
-		return value;
-	}
-}
 
 public class PriorityQueue<E> extends ArrayList<E>{
 	
