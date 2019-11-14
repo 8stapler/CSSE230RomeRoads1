@@ -82,6 +82,7 @@ public class RouteMenuListener implements ActionListener {
 		}
 		
 		public void itemStateChanged(ItemEvent e) {
+			
        		if (e.getSource() == fromSite || e.getSource() == toSite ||e.getSource() == cost) { 
        			route.setText("route from " + fromSite.getSelectedItem() + " to " + toSite.getSelectedItem() + " considering " + cost.getSelectedItem()); 
        		} 
