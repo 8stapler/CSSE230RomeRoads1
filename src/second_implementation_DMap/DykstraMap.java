@@ -167,7 +167,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	public Path scenestPath(Site start, Site end, int maxCost, ArrayList<Road> bannedRoads) { // Will only check at most the first 100,000 short paths (calculated)
 		
 		return null;
-	}
+	} 
 	
 
 
