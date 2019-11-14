@@ -12,8 +12,7 @@ public class TestGenerate {
 
 	public static void main(String[] args) throws Exception {
 		Map map = new Map();
-
-		map.generateMap("C:\\Users\\stapler\\git\\CSSE230RomeRoads3\\src\\code\\test.txt");
+		map.generateMap("code/Roma.txt");
 		System.out.println(map);
 	
 	}
