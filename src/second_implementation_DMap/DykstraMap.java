@@ -116,7 +116,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		
 	}
 	
-	public ArrayList<Site> tripPlanner(Site start, int maxCost, TreeSet<Site> fullGraph){
+	public ArrayList<Site> tripPlanner(Site start, int maxCost, TreeSet<Site> fullGraph){ //Pass in Integer.MAX_VALUE for maxCost to get array list of Sites (with distances from start & names)
 		//Set up known arrayList & unknown priorityQueue
 				start.setDistFrom(0);
 				
@@ -162,7 +162,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 				}
 		return known;
 	}
-	
+
 	
 	public Path scenestPath(Site start, Site end, int maxCost, ArrayList<Road> bannedRoads) { // Will only check at most the first 100,000 short paths (calculated)
 		
