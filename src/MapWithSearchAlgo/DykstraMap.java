@@ -1,15 +1,10 @@
 package MapWithSearchAlgo;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
-
-
 
 
 public class DykstraMap<E extends Comparable<?super E>> {
@@ -18,7 +13,6 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	
 	HashMap<String,Site> sites;
 	TreeSet<Site> siteList;
-	private MyInteger pathCount;
 	private int minCost;
 	private ArrayList<Path> paths;
 	
@@ -28,42 +22,8 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		sites= new HashMap<String, Site>(approxSites);
 		siteList= new TreeSet<Site>();
 		paths = new ArrayList<Path>();
-		pathCount= new MyInteger(0);
 		minCost=-1;
 	}
-	public void generateMap(String filename) throws Exception{
-		File file = new File(filename);
-		BufferedReader in = new BufferedReader(new FileReader(file));
-		
-		String line;
-		in.mark(1000000);
-		while((line=in.readLine())!=null) {//go through the lines looking to add sites
-			
-			String[] temp=line.split("\t|`");
-			System.out.println(Arrays.toString(temp));
-			if(temp[0].equals("Site")) {
-				int x= Integer.parseInt(temp[1]);
-				int y= Integer.parseInt(temp[2]);
-				int hist= Integer.parseInt(temp[3]);
-				String name= temp[4];
-				add(new Site(x,y,hist,name,temp[5],new ArrayList<Road>())); //csv has Site| x|y|history|name|description
-			}
-		}
-		in.reset(); //read back through the file for roads
-		while((line=in.readLine())!=null) {
-			String[] temp=line.split("\t|`");
-			if(temp[0].equals("Road")) {
-				//road lines are in the form Road`start`end`dist`beut
-				String startName=temp[1];
-				String stopName=temp[2];
-				int time = Integer.parseInt(temp[3]);
-				int beut= Integer.parseInt(temp[4]);
-				sites.get(startName).addRoad(new Road("name",sites.get(stopName),beut,time));
-			}
-		}
-		in.close();
-	}	
-	
 	
 	public boolean add(Site toAdd) {
 		boolean added=siteList.add(toAdd);
@@ -111,13 +71,16 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		
 		for(Site s : fullGraph) {
 			if(s!=start && s!=end) {
-			CostCompSite temp = new CostCompSite(s);
-			unknown.add(temp);
-			s.setCostComp(temp);
+			s.setCostComp(new CostCompSite(s));
 			}
+		}
+		for(Site s : fullGraph) {
+			unknown.add(s.costComp);
 		}
 		
 		CostCompSite current;
+		
+		System.out.println("unknown: "+unknown.toString());
 		
 		while(!(unknown.isEmpty())) {
 			
@@ -155,6 +118,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 						neighbor.setDistFrom(distToNeighbor);
 						neighbor.toRoad=r;
 						neighbor.prevSite=current;
+						System.out.println(neighbor.getName()+" : "+neighbor.getDistFrom());
 						
 						//Update Heap
 						int index = unknown.indexOf(neighbor);
@@ -171,14 +135,94 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	}
 	
 	
-	public Path scenestPath(Site start, Site end, int maxCost) { // Will only check at most the first 100,000 short paths (calculated)
+	public Path scenestPath(Site start, Site end, int maxCost, TreeSet<Site> fullGraph) { // Will only check at most the first 100,000 short paths (calculated)
 		
-		return null;
+				//Set up list of sites.
+				//a site is known if we know the shortest distance to it
+				//a site is unknown if we don't
+				//Everything is initially unknown
+				
+				PriorityQueue<CostCompSite> unknown = new PriorityQueue<CostCompSite>();
+				ArrayList<CostCompSite> known = new ArrayList<CostCompSite>();
+				Path result;
+				
+				CostCompSite beginning = new CostCompSite(start);
+				beginning.setDistFrom(0);
+				unknown.add(beginning);
+				start.setCostComp(beginning);
+				
+				CostCompSite destination = new CostCompSite(end);
+				unknown.add(destination);
+				end.setCostComp(destination);
+				
+				for(Site s : fullGraph) {
+					if(s!=start && s!=end) {
+					s.setCostComp(new CostCompSite(s));
+					}
+				}
+				for(Site s : fullGraph) {
+					unknown.add(s.costComp);
+				}
+				
+				CostCompSite current;
+				
+				System.out.println("unknown: "+unknown.toString());
+				
+				while(!(unknown.isEmpty())) {
+					
+					current=unknown.poll();
+					known.add(current);
+					
+					if(current.getDistFrom()==Integer.MAX_VALUE) {
+						return null; //Node not connected to rest by roads
+					}
+					if(current==destination) {
+						if(current.toRoad==null)return null; //Start node was End node
+						
+						LinkedList<Road> goBetween = new LinkedList<Road>();
+						
+						while(current.toRoad!=null) {
+							goBetween.addFirst(current.toRoad);
+							current=current.prevSite;
+						}
+						
+						//Path is an array list because it's nice to have instant access to each 'path length'/ road
+						result = new Path(goBetween);
+						return result;
+					}
+					
+					for(Road r: current.roads) {
+						
+						//Add a condition to check if the road is banned later (for nth shortest path)
+						
+						CostCompSite neighbor = r.getSite();
+						if(!(known.contains(neighbor))){
+							
+							int distToNeighbor = current.getDistFrom()+r.getTimeCost();
+							
+							if(distToNeighbor<neighbor.getDistFrom()) {
+								neighbor.setDistFrom(distToNeighbor);
+								neighbor.toRoad=r;
+								neighbor.prevSite=current;
+								System.out.println(neighbor.getName()+" : "+neighbor.getDistFrom());
+								
+								//Update Heap
+								int index = unknown.indexOf(neighbor);
+								unknown.remove(index);
+								unknown.add(neighbor);
+							}
+						}
+					}
+					
+				}
+				
+				
+				return null; //not in graph
 	}
 	
 
 
-private class CostCompSite extends Site{
+public class CostCompSite extends Site{
 
 
 	private CostCompSite prevSite;
@@ -201,7 +245,7 @@ private class CostCompSite extends Site{
 		
 	}
 	
-private class Site implements Comparable {
+public class Site implements Comparable {
 
 		private int xPos;
 		private int yPos;
@@ -227,12 +271,16 @@ private class Site implements Comparable {
 			histFrom=-1;
 			costComp=null;
 		}
-		public void addRoad(Road roadyboi) {
-			roads.add(roadyboi);
-		}
+		
 		
 		public ArrayList<Road> getRoads(){
 			return roads;
+		}
+		public void setRoads(ArrayList<Road>r) {
+			roads = r;
+		}
+		public String toString() {
+			return name;
 		}
 		public String getName() {
 			return name;
@@ -309,7 +357,6 @@ public class Road{
 	}
 	
 	
-	
 }
 
 public class Path extends ArrayList<Road>{
@@ -320,23 +367,15 @@ public class Path extends ArrayList<Road>{
 			super(roads);
 			length=Integer.MAX_VALUE;
 		}
+		
+		public String toString() {
+			ArrayList<String> result = new ArrayList<String>();
+			for(Road r:this) {
+				result.add(r.getName());
+			}
+			return result.toString();
+		}
 	}
-
-public class MyInteger{
-	
-	private int value;
-	
-	public MyInteger(int a) {
-		setValue(a);
-	}
-	
-	public void setValue(int a) {
-		value = a;
-	}
-	public int getValue() {
-		return value;
-	}
-}
 
 public class PriorityQueue<E> extends ArrayList<E>{
 	
