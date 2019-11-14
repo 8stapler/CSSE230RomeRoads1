@@ -1,0 +1,8 @@
+//form is Site	x	y	history`name`description
+Site	0	0	-10	Terre Haute	Meth Capital of the World
+djfklasd;jfl;
+Site	20	20	0	City2	<Genaric Town Description>
+//form is Road`StartCity`Destination City` time cost` beauty
+Road`Terre Haute`City2`10	2
+Road	City2	Terre Haute	10	3
+
