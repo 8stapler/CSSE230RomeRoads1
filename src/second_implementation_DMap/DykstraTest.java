@@ -111,7 +111,7 @@ public class DykstraTest {
 		spbase.add(r1_8);
 		spbase.add(r8_2);
 		Path sp = m.new Path(spbase);
-		assertEquals(sp,(m.shortestPath(site1, site2, m.getSiteList(),new ArrayList<Road>())));
+		assertEquals(sp,(m.shortestPath(site1, site2, new ArrayList<Road>())));
 		
 		
 	}
@@ -124,7 +124,7 @@ public class DykstraTest {
 		spbase.add(r8_2);
 		spbase.add(r2_3);
 		Path sp = m.new Path(spbase);
-		assertEquals(sp,(m.shortestPath(site1, site3,m.getSiteList(),new ArrayList<Road>())));
+		assertEquals(sp,(m.shortestPath(site1, site3,new ArrayList<Road>())));
 	}
 	
 
@@ -136,7 +136,7 @@ public class DykstraTest {
 		spbase.add(r6_7);
 		
 		Path sp = m.new Path(spbase);
-		assertEquals(sp,(m.shortestPath(site4, site7,m.getSiteList(),new ArrayList<Road>())));
+		assertEquals(sp,(m.shortestPath(site4, site7,new ArrayList<Road>())));
 	}
 	
 	@Test
@@ -148,7 +148,7 @@ public class DykstraTest {
 		spbase.add(r7_5);
 		
 		Path sp = m.new Path(spbase);
-		assertEquals(sp,(m.shortestPath(site4, site5,m.getSiteList(),new ArrayList<Road>())));
+		assertEquals(sp,(m.shortestPath(site4, site5,new ArrayList<Road>())));
 	}
 	
 	@Test
@@ -159,7 +159,7 @@ public class DykstraTest {
 		destinations.add(site2);
 		destinations.add(site6);
 		
-		assertEquals(destinations, m.tripPlanner(site3, 3, m.getSiteList()));
+		assertEquals(destinations, m.tripPlanner(site3, 3));
 		destinations.clear();
 		
 		destinations.add(site3);
@@ -169,7 +169,7 @@ public class DykstraTest {
 		destinations.add(site7);
 		destinations.add(site1);
 		
-		assertEquals(destinations, m.tripPlanner(site3,  6, m.getSiteList()));
+		assertEquals(destinations, m.tripPlanner(site3,  6));
 	}
 	
 	@Test
@@ -180,7 +180,7 @@ public class DykstraTest {
 		spbase.add(r1_8);
 		spbase.add(r8_2);
 		Path sp = m.new Path(spbase);
-		assertEquals(sp, m.scenestPath(site1, site2, 0, m.getSiteList()));
+		assertEquals(sp, m.scenestPath(site1, site2, 0));
 		spbase.clear();
 		
 		spbase.add(r1_8);
@@ -188,7 +188,7 @@ public class DykstraTest {
 		
 		sp = m.new Path(spbase);
 	
-		assertEquals(sp,m.scenestPath(site1, site2, 3, m.getSiteList()));
+		assertEquals(sp,m.scenestPath(site1, site2, 3));
 		spbase.clear();
 		
 		spbase.add(r1_3);
@@ -196,7 +196,7 @@ public class DykstraTest {
 		
 		sp = m.new Path(spbase);
 		spbase.clear();
-		assertEquals(sp,m.scenestPath(site1, site2, 11, m.getSiteList()));
+		assertEquals(sp,m.scenestPath(site1, site2, 11));
 		
 		spbase.add(r1_4);
 		spbase.add(r4_6);
@@ -204,7 +204,7 @@ public class DykstraTest {
 		spbase.add(r3_2);
 		sp = m.new Path(spbase);
 		spbase.clear();
-		assertEquals(sp,m.scenestPath(site1, site2, 17, m.getSiteList()));
+		assertEquals(sp,m.scenestPath(site1, site2, 17));
 		
 		
 	}

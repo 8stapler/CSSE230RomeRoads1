@@ -89,7 +89,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		}
 		in.close();
 	}	
-	public Path shortestPath(Site start, Site end, TreeSet<Site> fullGraph, ArrayList<Road> bannedRoads){
+	public Path shortestPath(Site start, Site end, ArrayList<Road> bannedRoads){
 
 		//Set up known arrayList & unknown priorityQueue
 		start.setDistFrom(0);
@@ -101,7 +101,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		ArrayList<Road> myBanned = new ArrayList<Road>();
 		myBanned.addAll(bannedRoads);
 		
-		for(Site s: fullGraph) {
+		for(Site s: siteList) {
 			unknown.add(s.getCostComp());
 		}
 		
@@ -166,7 +166,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		result.sCost = end.sceneFrom;
 		
 		//Reset sites to how they were before
-		for(Site s: fullGraph) {
+		for(Site s: siteList) {
 			s.setPrevSite(null);
 			s.setToRoad(null);
 			s.setDistFrom(Integer.MAX_VALUE);
@@ -182,14 +182,14 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		end2.addRoad(new Road(end2.getName(),end1,beut,time));
 	}
 	
-	public ArrayList<Site> tripPlanner(Site start, int maxCost, TreeSet<Site> fullGraph){ //Pass in Integer.MAX_VALUE for maxCost to get array list of Sites (with distances from start & names)
+	public ArrayList<Site> tripPlanner(Site start, int maxCost){ //Pass in Integer.MAX_VALUE for maxCost to get array list of Sites (with distances from start & names)
 		//Set up known arrayList & unknown priorityQueue
 				start.setDistFrom(0);
 				
 				ArrayList<Site> known = new ArrayList<Site>();
 				PriorityQueue<CostCompSite> unknown = new PriorityQueue<CostCompSite>();
 				
-				for(Site s: fullGraph) {
+				for(Site s: siteList) {
 					unknown.add(s.getCostComp());
 				}
 				
@@ -230,13 +230,13 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	}
 
 	
-	public Path scenestPath(Site start, Site end, int maxCost, TreeSet<Site> fullGraph) { // Will only check at most the first 100,000 short paths (calculated)
+	public Path scenestPath(Site start, Site end, int maxCost) { // Will only check at most the first 100,000 short paths (calculated)
 		
 		PriorityQueue<Path> solutions = new PriorityQueue<Path>();
 		PriorityQueue<Path> solvedSolns = new PriorityQueue<Path>();
 		Path shortest = new Path( new LinkedList<Road>() );
 		
-		shortest = shortestPath(start ,end ,fullGraph ,new ArrayList<Road>());//the first shortest path
+		shortest = shortestPath(start ,end ,new ArrayList<Road>());//the first shortest path
 		Path result = shortest;
 
 		solutions.add(shortest);
@@ -252,7 +252,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 				tempBan.add(r);
 				tempBan.addAll(problem.getBannedRoads());
 				
-				Path p = shortestPath(start, end, fullGraph, tempBan);
+				Path p = shortestPath(start, end, tempBan);
 				
 				if(p!=null) {
 					p.setBannedRoads(tempBan);
@@ -275,39 +275,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	} 
 	
 
-public class SceneCompSite implements Comparable{
-	private Site mySite;
-	
-	private ArrayList<Site> prevSites = new ArrayList<Site>();
-	
-	public SceneCompSite(Site s) {
-		
-		mySite = s;
-		
-	}
-	public int compareTo(Object otherSite) {
-		int compare =mySite.getSceneFrom()-(((SceneCompSite)otherSite).mySite.getSceneFrom());
-		
-		if(compare==0)return 0; 
-			
-			
-		return compare/Math.abs(compare);
-	}
-	public String toString() {
-		return mySite.toString();
-	}
-	
-	public Site getMySite() {
-		return mySite;
-	}
-	
-	public void setPrevSites(ArrayList<Site> a) {
-		prevSites = a;
-	}
-	public ArrayList<Site> getPrevSites(){
-		return prevSites;
-	}
-}
+
 	
 public class CostCompSite implements Comparable{
 
@@ -351,7 +319,6 @@ public class Site implements Comparable {
 		private CostCompSite costComp;
 		private Site prevSite;
 		private Road toRoad;
-		private SceneCompSite sceneComp;
 		
 		public Site(double xPosition, double yPosition, int history, String name, String description, ArrayList<Road> roadybois) {
 			
@@ -366,15 +333,11 @@ public class Site implements Comparable {
 			histFrom=Integer.MAX_VALUE;
 			
 			costComp=new CostCompSite(this);
-			sceneComp=new SceneCompSite(this);
 		}
 		
 		public CostCompSite getCostComp() {
 			return costComp;
 			
-		}
-		public SceneCompSite getSceneComp() {
-			return sceneComp;
 		}
 		public void setToRoad(Road a) {
 			toRoad = a;
