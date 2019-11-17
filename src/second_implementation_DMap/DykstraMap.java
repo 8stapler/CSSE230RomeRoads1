@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.TreeSet;
 
-import code.Road;
-import code.Site;
+
 
 
 public class DykstraMap<E extends Comparable<?super E>> {
@@ -127,7 +126,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			
 			for(Road r: current.getMySite().getRoads()) {
 				
-				if(!known.contains(r.destination.costComp)) {
+				if(!known.contains(r.getSite().getCostComp())) {
 				if(!myBanned.contains(r)) {
 					int distFromHere = current.getMySite().getDistFrom() + r.getTimeCost();
 					int sceneFromHere = current.getMySite().getSceneFrom()+r.getBeauty();
@@ -165,9 +164,9 @@ public class DykstraMap<E extends Comparable<?super E>> {
 			
 		}
 		Path result = new Path(temp);
-		result.dCost = end.distFrom;
-		result.sCost = end.sceneFrom;
-		result.hCost = end.histFrom;
+		result.setdCost(end.getDistFrom());
+		result.setsCost(end.getSceneFrom());
+		result.sethCost(end.getHistFrom());
 		
 		//Reset sites to how they were before
 		for(Site s: siteList) {
@@ -209,7 +208,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 						break;
 					}
 					
-					known.add(current.mySite);
+					known.add(current.getMySite());
 					
 					for(Road r: current.getMySite().getRoads()) {
 						
@@ -247,7 +246,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		solutions.add(shortest);
 
 		
-		while((solutions.peek()!=null && solutions.peek().dCost<=maxCost)) {
+		while((solutions.peek()!=null && solutions.peek().getdCost()<=maxCost)) {
 			Path problem = solutions.poll();//take current shortest path and
 			
 			solvedSolns.add(problem);
@@ -261,7 +260,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 				
 				if(p!=null) {
 					p.setBannedRoads(tempBan);
-					if(p.dCost<=maxCost) solutions.add(p);
+					if(p.getdCost()<=maxCost) solutions.add(p);
 				}
 			}
 			
@@ -271,7 +270,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		solvedSolns.addAll(solutions);
 		for (Path p: solvedSolns) {
 			
-			if(result.sCost<p.sCost) {
+			if(result.getsCost()<p.getsCost()) {
 				result = p;
 			}
 		}
@@ -291,7 +290,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		solutions.add(shortest);
 
 		
-		while((solutions.peek()!=null && solutions.peek().dCost<=maxCost)) {
+		while((solutions.peek()!=null && solutions.peek().getdCost()<=maxCost)) {
 			Path problem = solutions.poll();//take current shortest path and
 			
 			solvedSolns.add(problem);
@@ -304,7 +303,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 				Path p = shortestPath(start, end, tempBan);
 				if(p!=null) {
 					p.setBannedRoads(tempBan);
-					if(p.dCost<=maxCost) solutions.add(p);
+					if(p.getdCost()<=maxCost) solutions.add(p);
 				}
 			}
 			
@@ -314,7 +313,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		solvedSolns.addAll(solutions);
 		for (Path p: solvedSolns) {
 			
-			if(result.hCost<p.hCost) {
+			if(result.gethCost()<p.gethCost()) {
 				result = p;
 			}
 		}
@@ -325,214 +324,8 @@ public class DykstraMap<E extends Comparable<?super E>> {
 
 
 	
-public class CostCompSite implements Comparable{
+	
 
-	private Site mySite;
-	
-	public CostCompSite(Site s) {
 
-		mySite = s;
-		
-	}
-	
-	public int compareTo(Object otherSite) {
-		int compare =mySite.getDistFrom()-(((CostCompSite)otherSite).mySite.getDistFrom());
-		
-		if (compare==0) return 0; 
-			
-		return compare/Math.abs(compare);
-	}
-	
-	public String toString() {
-		return mySite.toString();
-	}
-	
-	public Site getMySite() {
-		return mySite;
-	}
-		
-	}
-	
-public class Site implements Comparable {
-
-		private double xPos;
-		private double yPos;
-		private int hist;
-		private String name;
-		private String desc;
-		private ArrayList<Road> roads= new ArrayList<Road>();
-		private int distFrom;
-		private int sceneFrom;
-		private int histFrom;
-		private CostCompSite costComp;
-		private Site prevSite;
-		private Road toRoad;
-		
-		public Site(double xPosition, double yPosition, int history, String name, String description, ArrayList<Road> roadybois) {
-			
-			xPos=xPosition;
-			yPos=yPosition;
-			hist=history;
-			this.name=name;
-			desc=description;
-			roads=roadybois;
-			distFrom=Integer.MAX_VALUE;
-			sceneFrom=Integer.MAX_VALUE;
-			histFrom=Integer.MAX_VALUE;
-			
-			costComp=new CostCompSite(this);
-		}
-		
-		public CostCompSite getCostComp() {
-			return costComp;
-			
-		}
-		public void setToRoad(Road a) {
-			toRoad = a;
-		}
-		public Road getToRoad() {
-			return toRoad;
-		}
-		public void setPrevSite(Site a) {
-			prevSite=a;
-		}
-		public Site getPrevSite() {
-			return prevSite;
-		}
-		public ArrayList<Road> getRoads(){
-			return roads;
-		}
-		public void setRoads(ArrayList<Road>r) {
-			roads = r;
-		}
-		public String toString() {
-			return name;
-		}
-		public String getName() {
-			return name;
-		}
-		public void setCostComp(CostCompSite a) {
-			costComp=a;
-		}
-
-		@Override
-		public int compareTo(Object otherSite) {
-			
-			return this.getName().compareTo(((Site)otherSite).getName());
-		}
-		
-		public boolean equals(Site b) {
-			return name.equals(b.getName());
-			
-		}
-
-		public int getHistory() {
-			return hist;
-		}
-		public String getDescription() {
-			return desc;
-		}
-		public int getDistFrom() {
-			return distFrom;
-		}
-		public void setDistFrom(int a) {
-			distFrom=a;
-		}
-		public int getSceneFrom() {
-			return sceneFrom;
-		}
-		public void setSceneFrom(int a) {
-			sceneFrom=a;
-		}
-		public int getHistFrom() {
-			return histFrom;
-		}
-		public void setHistFrom(int a) {
-			histFrom=a;
-		}
-		public void addRoad(Road roadyboi) {
-			roads.add(roadyboi);
-		}
-}
-
-public class Road{
-	private Site destination;
-	private int beauty;
-	private int timeCost;
-	private String name;
-	
-	public Road(String n, Site dest, int beaut, int tic) {
-		name=n;
-		destination = dest;
-		beauty = beaut;
-		timeCost = tic;
-	}
-	
-	public Site getSite() {
-		return  destination;
-	}
-	
-	public int getBeauty() {
-		return beauty;
-	}
-	
-	public String toString() {
-		return name;
-	}
-	public int getTimeCost() {
-		return timeCost;
-	}
-
-	public String getName() {
-
-		return name;
-	}
-	
-	
-}
-
-public class Path extends ArrayList<Road> implements Comparable{
-
-	
-		private ArrayList<Road> bannedRoads;
-		private int sCost;
-		private int dCost;
-		private int hCost;
-		
-		public Path(LinkedList<Road> roads) {
-			super(roads);
-			bannedRoads = new ArrayList<Road>();
-			if(!roads.isEmpty()) {
-			sCost=roads.getLast().getSite().getSceneFrom();
-			dCost=roads.getLast().getSite().getDistFrom();
-			}
-		}
-		
-		public ArrayList<Road> getBannedRoads(){
-			return bannedRoads;
-		}
-		public void setBannedRoads(ArrayList<Road> a) {
-			bannedRoads=new ArrayList<Road>();
-			bannedRoads.addAll(a);
-		}
-		
-		public String toString() {
-			ArrayList<String> result = new ArrayList<String>();
-			for(Road r:this) {
-				result.add(r.getName());
-			}
-			return result.toString();
-		}
-
-		@Override
-		public int compareTo(Object o) {
-			
-			int result = dCost-((Path) o).dCost;
-			
-			if(result == 0) return 0;
-			
-			return result/Math.abs(result);
-		}
-	}
 
 }
