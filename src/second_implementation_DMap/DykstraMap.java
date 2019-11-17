@@ -183,7 +183,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 	}
 	
 	public ArrayList<Site> tripPlanner(Site start, int maxCost){ //Pass in Integer.MAX_VALUE for maxCost to get array list of Sites (with distances from start & names)
-		//Set up known arrayList & unknown priorityQueue
+		//Set up known arrayList & unknown priorityQueue		 // Different enough from other methods to get its own method
 				start.setDistFrom(0);
 				
 				ArrayList<Site> known = new ArrayList<Site>();
