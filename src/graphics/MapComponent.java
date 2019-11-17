@@ -1,6 +1,7 @@
 package graphics;
 
 import code.Site;
+import code.Map;
 import code.Road;
 
 import java.awt.Color;
@@ -24,29 +25,35 @@ public class MapComponent extends JComponent {
 		setSize(800, 700);
 		
 		//test sites delete later 
-		TreeSet<Site> sites = new TreeSet<Site>();
-		Site site1 = new Site(350, 60, 0, "site1", "", new ArrayList<Road>());
-		Site site2 = new Site(100, 400, 0, "site2longname", "", new ArrayList<Road>());
-		Site site3 = new Site(600, 500, 0, "site3", "", new ArrayList<Road>());
-		Road road1 = new Road("site1", site2, 0, 0);
-		Road road2 = new Road("site1", site3, 0, 0);
-		site1.addRoad(road1);
-		site1.addRoad(road2);
-		sites.add(site1);
-		sites.add(site2);
-		sites.add(site3);
+		Map map = new Map();
+		try {
+			map.generateMap("C:\\Users\\stapler\\git\\CSSE230RomeRoads3\\src\\code\\Roma.txt");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		TreeSet<Site> sites = map.getSiteList();
+//		Site site1 = new Site(350, 60, 0, "site1", "", new ArrayList<Road>());
+//		Site site2 = new Site(100, 400, 0, "site2longname", "", new ArrayList<Road>());
+//		Site site3 = new Site(600, 500, 0, "site3", "", new ArrayList<Road>());
+//		Road road1 = new Road("site1", site2, 0, 0);
+//		Road road2 = new Road("site1", site3, 0, 0);
+//		site1.addRoad(road1);
+//		site1.addRoad(road2);
+//		sites.add(site1);
+//		sites.add(site2);
+//		sites.add(site3);
 		
 		//draw roads
 		for(Site site : sites) {
 			for(Road road : site.getRoads()) {
-				g2.draw(new Line2D.Double(site.getXPos(), site.getYPos(), road.getSite().getXPos(), road.getSite().getYPos()));
+				g2.draw(new Line2D.Double((site.getXPos() - 8) * 100, 700 - ((site.getYPos() - 40) * 100), (road.getSite().getXPos() - 8) * 100, (700 - (road.getSite().getYPos() - 40) * 100)));
 			}	
 		}
 		
 		//draw sites with names
 		for(Site site : sites) {
-			double x = site.getXPos();
-			double y = site.getYPos();
+			double x = (site.getXPos() - 8) * 100;
+			double y = 700 - ((site.getYPos() - 40) * 100);
 			Ellipse2D.Double circ = new Ellipse2D.Double(x - 15, y - 15, 30, 30);
 			String name = site.getName();
 			int width = g2.getFontMetrics().stringWidth(name);

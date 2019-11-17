@@ -7,25 +7,25 @@
 // Roma
 Site`12`41.833`15`Rome`Capital of the longest standing Republic
 // Tibur
-Site`12.798`41.960`7`Tivoli`First ally of Rome
+Site`13.798`42.160`7`Tivoli`First ally of Rome
 Road`Rome`Tivoli`9`5
 // Ocriculum
 Site`12.483`42.416`12`Otricoli`Anciently named Ocriculum, the Umbrian city concluded an alliance with Rome in 308 BC.
 Road`Rome`Otricoli`21`12
 // Ostia/Portus
-Site`12.279`41.733`14`Ostia`the only district of Rome on the Tyrrhenian Sea
+Site`13.179`41.733`14`Ostia`the only district of Rome on the Tyrrhenian Sea
 Road`Rome`Ostia`8`13
 // Narnia
-Site`12.517`41.517`13`Narni`an ancient hilltown and comune of Umbria, in central Italy
+Site`12.77`41.517`13`Narni`an ancient hilltown and comune of Umbria, in central Italy
 Road`Otricoli`Narni`4`10
 // Reate
-Site`12.867`42.4`7`Rieti`a city and comune in Lazio, central Italy
+Site`13.167`42.4`7`Rieti`a city and comune in Lazio, central Italy
 Road`Rome`Rieti`24`5
 // Spoletium
-Site`12.685`42.756`8`Spoleto`a walled medieval hill town in central Italy's Umbria region
+Site`12.685`43`8`Spoleto`a walled medieval hill town in central Italy's Umbria region
 Road`Narni`Spoleto`12`6
 // Volsinii
-Site`12.1`42.717`9`Volsinii`used to be one of the most powerful cities of Etruria
+Site`11.9`42.517`9`Volsinii`used to be one of the most powerful cities of Etruria
 Road`Rome`Volsinii`34`3
 // Cosa
 Site`11.28`42.410`10`Cosa`a Latin colony founded in southwestern Tuscany
@@ -37,13 +37,13 @@ Road`Volsinii`Clusium`14`8
 Site`13.583`42.85`13`Ascoli Piceno`a town and comune in the Marche region of Italy
 Road`Rieti`Ascoli Piceno`38`10
 // Alba Fucens
-Site`13.409`42.080`7`Alba Fucens`an ancient Italic town occupying a lofty location (1km) at the foot of the Monte Velino
+Site`14.009`41.580`7`Alba Fucens`an ancient Italic town occupying a lofty location (1km) at the foot of the Monte Velino
 Road`Tivoli`Alba Fucens`21`5
 // Corfinium
-Site`13.835`42.117`9`Corfinium`the chief city of the Paeligni
+Site`14.135`43.617`9`Corfinium`the chief city of the Paeligni
 Road`Alba Fucens`Corfinium`21`9
 // Castrum Truentinum
-Site`13.917`42.883`10`Martinsicuro`Remains of a Bronze Age settlement were found in the communal territory, on a hill overlooking the Tronto river.
+Site`14.17`42.583`10`Martinsicuro`Remains of a Bronze Age settlement were found in the communal territory, on a hill overlooking the Tronto river.
 Road`Ascoli Piceno`Martinsicuro`9`10
 // Ancona
 Site`13.517`43.617`8`Ancona`founded by Greek settlers who gave it the name that stems from a Greek word meaning "elbow"
@@ -65,10 +65,10 @@ Road`Faenza`Rimini`21`6
 Site`11.25`43.783`15`Florentia`used to be a centre of medieval European trade and finance and one of the wealthiest cities of that era.
 Road`Faenza`Florentia`40`3
 // Pisae
-Site`10.4`43.717`12`Pisa`Although known for its leaning tower, the city contains more than 20 other historic churches, several medieval palaces, and various bridges across the Arno
+Site`10.4`43.217`12`Pisa`Although known for its leaning tower, the city contains more than 20 other historic churches, several medieval palaces, and various bridges across the Arno
 Road`Cosa`Pisae`59`13
 // Luca
-Site`10.503`43.842`8`Lucca` famous for its intact Renaissance-era city walls
+Site`10.403`43.742`8`Lucca` famous for its intact Renaissance-era city walls
 Road`Lucca`Pisa`7`8
 // Pistoriae
 Site`10.917`43.933`11`Pistoia`typical Italian medieval city; famous throughout Europe for ts plant nurseries
@@ -86,16 +86,16 @@ Site`10.328`44.801472`14`Parma`City conquered to protect Rome during the republi
 Site`9.700556`45.047778`11`Piacenza`Former colony of the Etruscans, then the Celts, then the Romans and later a connection between Rome and the Holy Roman Empire.
 
 //Genua
-Site`494648`4917538`11`Genoa`Historical port city that was early to recover after the fall of Rome.
+Site`9.1`45.9`11`Genoa`Historical port city that was early to recover after the fall of Rome.
 
 // Dertona
-Site`489384`4971203`11`Tortona`City founded by Romans at a junction of their roads.
+Site`8.5`46`11`Tortona`City founded by Romans at a junction of their roads.
 
 //Ticinum
 Site` 9.15`45.183333`9`Pavia`Early Roman war camp, became central in the wars during the fall of Rome.
 
 //Luna
-Site`10.042028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings
+Site`9.942028`44.084842`13`Luni`Founded by the Romans to take over Italy, It became a marble mine. It was latter settled in by Vikings
 
 
 
