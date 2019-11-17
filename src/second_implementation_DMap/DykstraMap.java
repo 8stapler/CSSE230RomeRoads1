@@ -238,7 +238,6 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		
 		shortest = shortestPath(start ,end ,fullGraph ,new ArrayList<Road>());//the first shortest path
 		Path result = shortest;
-		System.out.println("Maxlen: "+maxCost);
 
 		solutions.add(shortest);
 
@@ -271,8 +270,6 @@ public class DykstraMap<E extends Comparable<?super E>> {
 				result = p;
 			}
 		}
-		System.out.println(solvedSolns);
-		System.out.println(result +" : "+result.dCost+" : "+result.sCost);
 		
 		return result;
 	} 

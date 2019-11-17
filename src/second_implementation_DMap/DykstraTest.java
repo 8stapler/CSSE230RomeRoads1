@@ -101,6 +101,7 @@ public class DykstraTest {
 	m.add(site5);
 	m.add(site6);
 	m.add(site7);
+	m.add(site8);
 }
 	@Test
 	public void testShortestPath1_2() {
@@ -175,7 +176,7 @@ public class DykstraTest {
 	public void testScenestPath() {
 		testDykstraConstruct();
 		LinkedList<Road> spbase = new LinkedList<Road>();
-		
+				
 		spbase.add(r1_8);
 		spbase.add(r8_2);
 		Path sp = m.new Path(spbase);
@@ -205,7 +206,6 @@ public class DykstraTest {
 		spbase.clear();
 		assertEquals(sp,m.scenestPath(site1, site2, 17, m.getSiteList()));
 		
-		System.out.println(m.scenestPath(site1, site7, Integer.MAX_VALUE, m.getSiteList()));
 		
 	}
 }
