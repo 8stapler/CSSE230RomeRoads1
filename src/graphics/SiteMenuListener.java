@@ -16,9 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import code.Map;
-import second_implementation_DMap.DykstraMap;
-import second_implementation_DMap.DykstraMap.Site;
+import main.DykstraMap;
+import main.Site;
 
 public class SiteMenuListener implements ActionListener {
 	static JLabel siteInfo;
@@ -43,7 +42,7 @@ public class SiteMenuListener implements ActionListener {
 			panel.setBorder(new EmptyBorder(new Insets(50, 0, 0, 0)));
 			;
 			try {
-				map.generateMap("C:\\Users\\stapler\\git\\CSSE230RomeRoads3\\src\\code\\Roma.txt");
+				map.generateMap("src/graphics/Roma.txt");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

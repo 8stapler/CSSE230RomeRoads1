@@ -18,10 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import MapWithSearchAlgo.DykstraMap.Path;
-import second_implementation_DMap.DykstraMap;
-import second_implementation_DMap.DykstraMap.Road;
-import second_implementation_DMap.DykstraMap.Site;
+import main.DykstraMap;
+import main.Road;
+import main.Site;
+import main.Path;
 
 
 public class RouteMenuListener implements ActionListener {
@@ -51,7 +51,7 @@ public class RouteMenuListener implements ActionListener {
 			panel.setBorder(new EmptyBorder(new Insets(50, 0, 0, 0)));
 			
 			try {
-				map.generateMap("C:\\\\Users\\\\stapler\\\\git\\\\CSSE230RomeRoads3\\\\src\\\\code\\\\Roma.txt");
+				map.generateMap("src/graphics/Roma.txt");
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -134,7 +134,7 @@ public class RouteMenuListener implements ActionListener {
            				route.setText("Enter a value");
            			}
            			else {
-           				ArrayList<Path> path = map.historyestPath(f, t, Integer.parseInt(amount.getText()));
+           				Path path = map.historyestPath(f, t, Integer.parseInt(amount.getText()));
            				route.setText("<html><p>" + path.toString() + "</p></html>\"");
            			}
        			}
@@ -143,12 +143,12 @@ public class RouteMenuListener implements ActionListener {
            				route.setText("Enter a value");
            			}
            			else {
-           				ArrayList<Path> path = map.scenestPath(f, t, Integer.parseInt(amount.getText()));
+           				Path path = map.scenestPath(f, t, Integer.parseInt(amount.getText()));
            				route.setText("<html><p>" + path.toString() + "</p></html>\"");
            			}
        			}
        			else {
-       				ArrayList<Path> path = map.shortestPath(f, t, new ArrayList<Road>());
+       				Path path = map.shortestPath(f, t, new ArrayList<Road>());
        				route.setText("<html><p>" + path.toString() + "</p></html>\"");
        			}
        		}

@@ -1,8 +1,8 @@
 package graphics;
 
-import code.Site;
-import code.Map;
-import code.Road;
+import main.Site;
+import main.DykstraMap;
+import main.Road;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -25,23 +25,13 @@ public class MapComponent extends JComponent {
 		setSize(800, 700);
 		
 		//test sites delete later 
-		Map map = new Map();
+		DykstraMap map = new DykstraMap();
 		try {
-			map.generateMap("C:\\Users\\stapler\\git\\CSSE230RomeRoads3\\src\\code\\Roma.txt");
+			map.generateMap("src/graphics/Roma.txt");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		TreeSet<Site> sites = map.getSiteList();
-//		Site site1 = new Site(350, 60, 0, "site1", "", new ArrayList<Road>());
-//		Site site2 = new Site(100, 400, 0, "site2longname", "", new ArrayList<Road>());
-//		Site site3 = new Site(600, 500, 0, "site3", "", new ArrayList<Road>());
-//		Road road1 = new Road("site1", site2, 0, 0);
-//		Road road2 = new Road("site1", site3, 0, 0);
-//		site1.addRoad(road1);
-//		site1.addRoad(road2);
-//		sites.add(site1);
-//		sites.add(site2);
-//		sites.add(site3);
 		
 		//draw roads
 		for(Site site : sites) {

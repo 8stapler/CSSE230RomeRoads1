@@ -1,8 +1,5 @@
 package graphics;
 
-import second_implementation_DMap.DykstraMap;
-import second_implementation_DMap.DykstraMap.Site;
-
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -21,7 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import MapWithSearchAlgo.DykstraMap.Path;
+import main.Path;
+import main.DykstraMap;
+import main.Site;
 
 public class PlannerMenuListener implements ActionListener {
 	static JComboBox site;
@@ -49,7 +48,7 @@ public class PlannerMenuListener implements ActionListener {
 			panel.setBorder(new EmptyBorder(new Insets(50, 0, 0, 0)));
 			
 			try {
-				map.generateMap("C:\\\\Users\\\\stapler\\\\git\\\\CSSE230RomeRoads3\\\\src\\\\code\\\\Roma.txt");
+				map.generateMap("src/graphics/Roma.txt");
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
