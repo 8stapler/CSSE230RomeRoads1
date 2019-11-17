@@ -181,7 +181,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		return result;
 		
 	}
-	
+	 
 	private void addTwoRoads(Site end1, Site end2,int  beut, int time) {
 		end1.addRoad(new Road(end1.getName(),end2,beut,time));
 		end2.addRoad(new Road(end2.getName(),end1,beut,time));
