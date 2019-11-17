@@ -110,7 +110,7 @@ public class DykstraMap<E extends Comparable<?super E>> {
 		CostCompSite current = start.getCostComp();
 
 		
-		while(unknown.peek()!=null) {
+		while(unknown.peek()!=null) { 
 			
 			
 			current=unknown.poll();
