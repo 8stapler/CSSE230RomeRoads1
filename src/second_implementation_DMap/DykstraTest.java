@@ -16,14 +16,14 @@ import second_implementation_DMap.DykstraMap.Path;
 public class DykstraTest {
 	DykstraMap m = new DykstraMap();
 	
-	Site site1 = m.new Site(0,0,0,"1", "desc1", new ArrayList<Road>());
-	Site site2 = m.new Site(0,0,0,"2", "desc2", new ArrayList<Road>());
-	Site site3 = m.new Site(0,0,0,"3", "desc3", new ArrayList<Road>());
-	Site site4 = m.new Site(0,0,0,"4", "desc4", new ArrayList<Road>());
-	Site site5 = m.new Site(0,0,0,"5", "desc5", new ArrayList<Road>());
-	Site site6 = m.new Site(0,0,0,"6", "desc6", new ArrayList<Road>());
-	Site site7 = m.new Site(0,0,0,"7", "desc7", new ArrayList<Road>());
-	Site site8 = m.new Site(0,0,0,"8", "desc8", new ArrayList<Road>());
+	Site site1 = m.new Site(0,0,4,"1", "desc1", new ArrayList<Road>());
+	Site site2 = m.new Site(0,0,7,"2", "desc2", new ArrayList<Road>());
+	Site site3 = m.new Site(0,0,2,"3", "desc3", new ArrayList<Road>());
+	Site site4 = m.new Site(0,0,5,"4", "desc4", new ArrayList<Road>());
+	Site site5 = m.new Site(0,0,3,"5", "desc5", new ArrayList<Road>());
+	Site site6 = m.new Site(0,0,6,"6", "desc6", new ArrayList<Road>());
+	Site site7 = m.new Site(0,0,4,"7", "desc7", new ArrayList<Road>());
+	Site site8 = m.new Site(0,0,2,"8", "desc8", new ArrayList<Road>());
 	
 	Road r1_8 = m.new Road("1-8", site8, 1, 1);
 	Road r8_1 = m.new Road("8-1", site1, 1, 1);
@@ -205,7 +205,24 @@ public class DykstraTest {
 		sp = m.new Path(spbase);
 		spbase.clear();
 		assertEquals(sp,m.scenestPath(site1, site2, 17));
+	}
+	
+	@Test
+	public void testHistestPath() {
+		testDykstraConstruct();
+		LinkedList<Road> spbase = new LinkedList<Road>();
 		
+		spbase.add(r1_8);
+		spbase.add(r8_2);
+		spbase.add(r2_5);
+		spbase.add(r5_7);
+		spbase.add(r7_6);
+		Path sp = m.new Path(spbase);
+		spbase.clear();
+		assertEquals(sp, m.historyestPath(site1, site6, 20));
 		
+		spbase.add(r1_4);
+		sp = m.new Path(spbase);
+		assertEquals(sp,m.historyestPath(site1, site4, 7));
 	}
 }
