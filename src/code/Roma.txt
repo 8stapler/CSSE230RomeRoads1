@@ -70,9 +70,6 @@ Road`Cosa`Pisae`59`13
 // Luca
 Site`10.403`43.742`8`Lucca` famous for its intact Renaissance-era city walls
 Road`Lucca`Pisa`7`8
-// Pistoriae
-Site`10.917`43.933`11`Pistoia`typical Italian medieval city; famous throughout Europe for ts plant nurseries
-
 // Bononia
 Site`11.351`44.508`13`Bologna`Of Etruscan origin, the city has been a major urban centre for centuries.
 

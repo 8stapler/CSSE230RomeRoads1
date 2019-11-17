@@ -15,10 +15,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import MapWithSearchAlgo.DykstraMap.Path;
 import second_implementation_DMap.DykstraMap;
+import second_implementation_DMap.DykstraMap.Road;
 import second_implementation_DMap.DykstraMap.Site;
 
 
@@ -26,6 +28,7 @@ public class RouteMenuListener implements ActionListener {
 	static JComboBox cost;
 	static JComboBox fromSite;
 	static JComboBox toSite;
+	static JTextField amount;
 	static JLabel route;
 	static DykstraMap map = new DykstraMap();
 	TreeSet<Site> siteList = map.getSiteList();
@@ -39,7 +42,7 @@ public class RouteMenuListener implements ActionListener {
 		
 		public void createMenu() {
 			JFrame frame = new JFrame("Browse Sites");
-			frame.setSize(320, 500);
+			frame.setSize(380, 500);
 			
 			RouteMenu r = new RouteMenu();
 			
@@ -60,10 +63,13 @@ public class RouteMenuListener implements ActionListener {
 				i++;
 			}
 			
-			String testCost[] = {"distance", "scenic"};
+			String costs[] = {"distance", "scenery", "history"};
 			
 			JLabel costText = new JLabel("Find best route considering:");
 			costText.setAlignmentX(Component.CENTER_ALIGNMENT);
+			
+			JLabel specifyDistance = new JLabel("Specify a maximum distance (scenery or history only)");
+			specifyDistance.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
 			JLabel from = new JLabel("Starting point:");
 			from.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -71,8 +77,11 @@ public class RouteMenuListener implements ActionListener {
 			JLabel to = new JLabel("Destination:");
 			to.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
-			cost = new JComboBox(testCost);
-			cost.setSelectedItem("time");
+			amount = new JTextField(10);
+			amount.setMaximumSize(new Dimension(150,40));
+			
+			cost = new JComboBox(costs);
+			cost.setSelectedItem("distance");
 			cost.setMaximumSize(new Dimension(150,40));
 			cost.addItemListener(r);
 			
@@ -91,6 +100,8 @@ public class RouteMenuListener implements ActionListener {
 			
 			panel.add(costText);
 			panel.add(cost);
+			panel.add(specifyDistance);
+			panel.add(amount);
 			panel.add(from);
 			panel.add(fromSite);
 			panel.add(to);
@@ -117,9 +128,29 @@ public class RouteMenuListener implements ActionListener {
 				}
 			}
 			
-       		if (e.getSource() == fromSite || e.getSource() == toSite ||e.getSource() == cost) { 
-   				ArrayList<Path> path = map.shortestPath(f, t, map.getSiteList());
-   				route.setText("<html><p>" + path.toString() + "</p></html>\"");
+       		if (e.getSource() == fromSite || e.getSource() == toSite || e.getSource() == cost) { 
+       			if (cost.getSelectedItem().equals("history")) {
+           			if(amount.getText().equals("")) {
+           				route.setText("Enter a value");
+           			}
+           			else {
+           				ArrayList<Path> path = map.historyestPath(f, t, Integer.parseInt(amount.getText()));
+           				route.setText("<html><p>" + path.toString() + "</p></html>\"");
+           			}
+       			}
+       			if (cost.getSelectedItem().equals("scenery")) {
+           			if(amount.getText().equals("")) {
+           				route.setText("Enter a value");
+           			}
+           			else {
+           				ArrayList<Path> path = map.scenestPath(f, t, Integer.parseInt(amount.getText()));
+           				route.setText("<html><p>" + path.toString() + "</p></html>\"");
+           			}
+       			}
+       			else {
+       				ArrayList<Path> path = map.shortestPath(f, t, new ArrayList<Road>());
+       				route.setText("<html><p>" + path.toString() + "</p></html>\"");
+       			}
        		}
 		}
 	}

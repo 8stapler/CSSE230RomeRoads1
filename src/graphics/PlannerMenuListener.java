@@ -24,7 +24,6 @@ import javax.swing.border.EmptyBorder;
 import MapWithSearchAlgo.DykstraMap.Path;
 
 public class PlannerMenuListener implements ActionListener {
-	static JComboBox cost;
 	static JComboBox site;
 	static JTextField amount;
 	static JLabel route;
@@ -61,10 +60,8 @@ public class PlannerMenuListener implements ActionListener {
 				i++;
 			}
 
-			 
-			String testCost[] = {"scenic", "distance"};
 			
-			JLabel costText = new JLabel("Find a route with:");
+			JLabel costText = new JLabel("Find a route with a distance of:");
 			costText.setAlignmentX(Component.CENTER_ALIGNMENT);
 			
 			JLabel start = new JLabel("Starting point:");
@@ -72,11 +69,6 @@ public class PlannerMenuListener implements ActionListener {
 			
 			amount = new JTextField(10);
 			amount.setMaximumSize(new Dimension(150,40));
-
-			cost = new JComboBox(testCost);
-			cost.setSelectedItem("distance");
-			cost.setMaximumSize(new Dimension(150,40));
-			cost.addItemListener(p);
 			
 			site = new JComboBox(siteStrings);
 			site.setSelectedItem("site1");
@@ -88,7 +80,6 @@ public class PlannerMenuListener implements ActionListener {
 			
 			panel.add(costText);
 			panel.add(amount);
-			panel.add(cost);
 			panel.add(start);
 			panel.add(site);
 			panel.add(route);
@@ -106,13 +97,13 @@ public class PlannerMenuListener implements ActionListener {
 			}
 			
 			
-       		if (e.getSource() == cost || e.getSource() == site) { 
+       		if (e.getSource() == site) { 
        			route.setText("");
        			if(amount.getText().equals("")) {
        				route.setText("Enter a value");
        			}
        			else {
-       				ArrayList<Path> path = map.tripPlanner(x, Integer.parseInt(amount.getText()), map.getSiteList());
+       				ArrayList<Path> path = map.tripPlanner(x, Integer.parseInt(amount.getText()));
        				route.setText("<html><p>" + path.toString() + "</p></html>\"");
        			}
        		} 
