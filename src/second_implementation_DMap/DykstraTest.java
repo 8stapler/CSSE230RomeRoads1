@@ -28,8 +28,8 @@ public class DykstraTest {
 	Road r1_8 = m.new Road("1-8", site8, 1, 1);
 	Road r8_1 = m.new Road("8-1", site1, 1, 1);
 	
-	Road r1_3 = m.new Road("1-3", site3, 5, 7);
-	Road r3_1 = m.new Road("3-1", site1, 5, 7);
+	Road r1_3 = m.new Road("1-3", site3, 7, 7);
+	Road r3_1 = m.new Road("3-1", site1, 7, 7);
 	
 	Road r1_4 = m.new Road("1-4", site4, 7, 7);
 	Road r4_1 = m.new Road("4-1", site1, 7, 7);
@@ -176,6 +176,8 @@ public class DykstraTest {
 		testDykstraConstruct();
 		LinkedList<Road> spbase = new LinkedList<Road>();
 		
+		spbase.add(r1_8);
+		spbase.add(r8_2);
 		Path sp = m.new Path(spbase);
 		assertEquals(sp, m.scenestPath(site1, site2, 0, m.getSiteList()));
 		spbase.clear();
